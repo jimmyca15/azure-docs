@@ -1,86 +1,76 @@
 ---
-title: Managing security recommendations in Azure Security Center  | Microsoft Docs
+title: Security recommendations in Azure Security Center
 description: This document walks you through how recommendations in Azure Security Center help you protect your Azure resources and stay in compliance with security policies.
 services: security-center
 documentationcenter: na
-author: rkarlin
-manager: barbkess
-editor: ''
-
+author: memildin
+manager: rkarlin
 ms.assetid: 86c50c9f-eb6b-4d97-acb3-6d599c06133e
 ms.service: security-center
 ms.devlang: na
 ms.topic: conceptual
 ms.tgt_pltfrm: na
 ms.workload: na
-ms.date: 12/13/2018
-ms.author: rkarlin
+ms.date: 09/22/2020
+ms.author: memildin
 
 ---
-# Managing security recommendations in Azure Security Center
-This document walks you through how to use recommendations in Azure Security Center to help you protect your Azure resources.
+# Security recommendations in Azure Security Center 
+This topic explains how to view and understand the recommendations in Azure Security Center to help you protect your Azure resources.
 
-> [!NOTE]
-> This document introduces the service by using an example deployment.  This document is not a step-by-step guide.
->
->
 
 ## What are security recommendations?
-Security Center periodically analyzes the security state of your Azure resources. When Security Center identifies potential security vulnerabilities, it creates recommendations. The recommendations guide you through the process of configuring the needed controls.
 
-## Implementing security recommendations
-### Set recommendations
-In [Setting security policies in Azure Security Center](tutorial-security-policy.md), you learn to:
+Recommendations are actions for you to take in order to secure your resources.
 
-* Configure security policies.
-* Turn on data collection.
-* Choose which recommendations to see as part of your security policy.
+Security Center periodically analyzes the security state of your Azure resources to identify potential security vulnerabilities. It then provides you with recommendations on how to remediate those vulnerabilities.
 
-Current policy recommendations center around system updates, baseline rules, anti-malware programs, [network security groups](../virtual-network/security-overview.md) on subnets and network interfaces, SQL database auditing, SQL database transparent data encryption, and web application firewalls.  [Setting security policies](tutorial-security-policy.md) provides a description of each recommendation option.
+Each recommendation provides you with:
 
-### Monitor recommendations
-After setting a security policy, Security Center analyzes the security state of your resources to identify potential vulnerabilities. The **Recommendations** tile under **Overview** lets you know the total number of recommendations identified by Security Center.
+- A short description of the issue
+- The remediation steps to carry out in order to implement the recommendation
+- The affected resources
 
-![Recommendations tile][1]
+## Monitor recommendations <a name="monitor-recommendations"></a>
 
-To see the details of each recommendation, select the **Recommendations tile** under **Overview**. **Recommendations** opens.
+Security Center analyzes the security state of your resources to identify potential vulnerabilities. 
 
-![Filter recommendations][2]
+1. From Security Center's menu, open the **Recommendations** page to see the recommendations applicable to your environment. Recommendations are grouped into security controls.
 
-You can filter recommendations. To filter the recommendations, select **Filter** on the **Recommendations** blade. The **Filter** blade opens and you select the severity and state values you wish to see.
+      ![Recommendations grouped by security control](./media/security-center-recommendations/view-recommendations.png)
 
+1. Expand a control and select a specific recommendation to view the recommendation details page.
 
-* **RECOMMENDATIONS**: The recommendation.
-* **SECURE SCORE IMPACT**:
-* **RESOURCE**: Lists the resources to which this recommendation applies.
-* **STATUS BARS**:  Describes the severity of that particular recommendation:
-   * **High (Red)**: A vulnerability exists with a meaningful resource (such as an application, a VM, or a network security group) and requires attention.
-   * **Medium (Orange)**: A vulnerability exists and non-critical or additional steps are required to eliminate it or to complete a process.
-   * **Low (Blue)**: A vulnerability exists that should be addressed but does not require immediate attention. (By default, low recommendations aren't presented, but you can filter on low recommendations if you want to see them.) 
-   * **Healthy (Green)**:
-   * **Not Available (Grey)**:
+    :::image type="content" source="./media/security-center-recommendations/recommendation-details-page.png" alt-text="Recommendation details page." lightbox="./media/security-center-recommendations/recommendation-details-page.png":::
+
+    The page includes:
+
+    1. **Enforce** and **Deny** buttons on supported recommendations (see [Prevent misconfigurations with Enforce/Deny recommendations](prevent-misconfigurations.md))
+    1. **Severity indicator**
+    1. **Freshness interval**  (where relevant) 
+    1. **Description** - A short description of the issue
+    1. **Remediation steps** - A description of the manual steps required to remediate the security issue on the affected resources. For recommendations with 'quick fix', you can select **View remediation logic** before applying the suggested fix to your resources. 
+    1. **Affected resources** - Your resources are grouped into tabs:
+        - **Healthy resources** – Relevant resources which either aren't impacted or on which you've already  remediated the issue.
+        - **Unhealthy resources** – Resources which are still impacted by the identified issue.
+        - **Not applicable resources** – Resources for which the recommendation can't give a definitive answer. The not applicable tab also includes reasons for each resource. 
+
+            :::image type="content" source="./media/security-center-recommendations/recommendations-not-applicable-reasons.png" alt-text="Not applicable resources with reasons.":::
+    1. Action buttons to remediate the recommendation or trigger a logic app.
+
+## Preview recommendations
+
+Recommendations flagged as **Preview** aren't included in the calculations of your secure score.
+
+They should still be remediated wherever possible, so that when the preview period ends they'll contribute towards your score.
+
+An example of a preview recommendation:
+
+:::image type="content" source="./media/secure-score-security-controls/example-of-preview-recommendation.png" alt-text="Recommendation with the preview flag":::
  
-
-
-> [!NOTE]
-> You will want to understand the [classic and Resource Manager deployment models](../azure-classic-rm.md) for Azure resources.
-> 
-> 
-> ### Apply recommendations
-> After reviewing all recommendations, decide which one you should apply first. We recommend that you use the severity rating as the main parameter to evaluate which recommendations should be applied first.
-
-
-
 ## Next steps
-In this document, you were introduced to security recommendations in Security Center. To learn more about Security Center, see the following:
 
-* [Setting security policies in Azure Security Center](tutorial-security-policy.md) — Learn how to configure security policies for your Azure subscriptions and resource groups.
-* [Security health monitoring in Azure Security Center](security-center-monitoring.md) — Learn how to monitor the health of your Azure resources.
-* [Managing and responding to security alerts in Azure Security Center](security-center-managing-and-responding-alerts.md) — Learn how to manage and respond to security alerts.
-* [Monitoring partner solutions with Azure Security Center](security-center-partner-solutions.md) — Learn how to monitor the health status of your partner solutions.
-* [Azure Security Center FAQ](security-center-faq.md) — Find frequently asked questions about using the service.
-* [Azure Security blog](https://blogs.msdn.com/b/azuresecurity/) — Find blog posts about Azure security and compliance.
+In this document, you were introduced to security recommendations in Security Center. To learn how to remediate the recommendations:
 
-<!--Image references-->
-[1]: ./media/security-center-recommendations/recommendations-tile.png
-[2]: ./media/security-center-recommendations/filter-recommendations.png
+- [Remediate recommendations](security-center-remediate-recommendations.md) — Learn how to configure security policies for your Azure subscriptions and resource groups.
+- [Prevent misconfigurations with Enforce/Deny recommendations](prevent-misconfigurations.md).

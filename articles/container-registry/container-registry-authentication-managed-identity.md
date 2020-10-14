@@ -1,13 +1,8 @@
 ---
-title: Azure Container Registry authentication with a managed identity
+title: Authenticate with managed identity
 description: Provide access to images in your private container registry by using a user-assigned or system-assigned managed Azure identity.
-services: container-registry
-author: dlepow
-
-ms.service: container-registry
 ms.topic: article
 ms.date: 01/16/2019
-ms.author: danlep
 ---
 
 # Use an Azure managed identity to authenticate to an Azure container registry 
@@ -79,6 +74,7 @@ ssh azureuser@publicIpAddress
 Run the following command to install Docker on the VM:
 
 ```bash
+sudo apt update
 sudo apt install docker.io -y
 ```
 
@@ -160,7 +156,7 @@ az role assignment create --assignee $spID --scope $resourceID --role acrpull
 
 SSH into the Docker virtual machine that's configured with the identity. Run the following Azure CLI commands, using the Azure CLI installed on the VM.
 
-First, authenticate to the Azure CLI with [az login][az-login], using the identity you configured on the VM. For <userID>, substitute the ID of the identity you retrieved in a previous step. 
+First, authenticate to the Azure CLI with [az login][az-login], using the identity you configured on the VM. For `<userID>`, substitute the ID of the identity you retrieved in a previous step. 
 
 ```azurecli
 az login --identity --username <userID>
@@ -229,6 +225,8 @@ You should see a `Login succeeded` message. You can then run `docker` commands w
 ```
 docker pull mycontainerregistry.azurecr.io/aci-helloworld:v1
 ```
+> [!NOTE]
+> System-assigned managed service identities can be used to interact with ACRs and App Service can use system-assigned managed service identities. However, you cannot combine these, as App Service cannot use MSI to talk to an ACR. The only way is to enable admin on the ACR and use the admin username/password.
 
 ## Next steps
 
@@ -239,7 +237,7 @@ In this article, you learned about using managed identities with Azure Container
 > * Grant the identity access to an Azure container registry
 > * Use the managed identity to access the registry and pull a container image
 
-* Learn more about [managed identities for Azure resources](/azure/active-directory/managed-identities-azure-resources/).
+* Learn more about [managed identities for Azure resources](../active-directory/managed-identities-azure-resources/index.yml).
 
 
 <!-- LINKS - external -->

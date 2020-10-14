@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Adoddle cSaas Platform | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Adoddle cSaas Platform.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: daveba
-ms.reviewer: barbkess
-
-ms.assetid: 1b946fdc-f7f3-4d53-a095-692027ad4311
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 01/17/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Adoddle cSaas Platform
 
@@ -188,5 +182,5 @@ When you click the Adoddle cSaas Platform tile in the Access Panel, you should b
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
 

@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Korn Ferry ALP | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Korn Ferry ALP.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: mtillman
-ms.reviewer: barbkess
-
-ms.assetid: 6f5b53b7-6d1d-4bed-a95a-127e2d4d8b3f
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 01/21/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Korn Ferry ALP
 
@@ -103,19 +97,19 @@ To configure Azure AD single sign-on with Korn Ferry ALP, perform the following 
 
 	a. In the **Sign on URL** text box, type a URL using the following pattern:
 
-	| |
-	|--|
-	| `https://intappextin01/portalweb/sso/client/audience?guid=<customerguid>` | 
-	| `https://qaassessment.kfnaqa.com/portalweb/sso/client/audience?guid=<customerguid>` |
-	| `https://assessments.kornferry.com/portalweb/sso/client/audience?guid=<customerguid>` |
+    ```http
+    https://intappextin01/portalweb/sso/client/audience?guid=<customerguid>
+    https://qaassessment.kfnaqa.com/portalweb/sso/client/audience?guid=<customerguid>
+    https://assessments.kornferry.com/portalweb/sso/client/audience?guid=<customerguid>
+    ```
 
     b. In the **Identifier (Entity ID)** text box, type a URL using the following pattern:
 	
-	| |
-	|--|
-	| `https://intappextin01/portalweb/sso/client/audience?guid=<customerguid>` |
-	| `https://qaassessment.kfnaqa.com/portalweb/sso/client/audience?guid=<customerguid>` |
-	| `https://assessments.kornferry.com/portalweb/sso/client/audience?guid=<customerguid>` |
+    ```http
+    https://intappextin01/portalweb/sso/client/audience?guid=<customerguid>
+    https://qaassessment.kfnaqa.com/portalweb/sso/client/audience?guid=<customerguid>
+    https://assessments.kornferry.com/portalweb/sso/client/audience?guid=<customerguid>
+    ```
 
 	> [!NOTE]
 	> These values are not real. Update these values with the actual Sign on URL and Identifier. Contact [Korn Ferry ALP Client support team](mailto:noreply@kornferry.com) to get these values. You can also refer to the patterns shown in the **Basic SAML Configuration** section in the Azure portal.
@@ -195,5 +189,5 @@ When you click the Korn Ferry ALP tile in the Access Panel, you should be automa
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
 

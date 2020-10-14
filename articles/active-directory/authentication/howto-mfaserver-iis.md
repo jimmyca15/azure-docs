@@ -5,7 +5,7 @@ description: Deploying IIS Authentication and Azure Multi-Factor Authentication 
 services: multi-factor-authentication
 ms.service: active-directory
 ms.subservice: authentication
-ms.topic: conceptual
+ms.topic: how-to
 ms.date: 07/11/2018
 
 ms.author: joflore
@@ -18,6 +18,15 @@ ms.collection: M365-identity-device-management
 # Configure Azure Multi-Factor Authentication Server for IIS web apps
 
 Use the IIS Authentication section of the Azure Multi-Factor Authentication (MFA) Server to enable and configure IIS authentication for integration with Microsoft IIS web applications. The Azure MFA Server installs a plug-in that can filter requests being made to the IIS web server to add Azure Multi-Factor Authentication. The IIS plug-in provides support for Form-Based Authentication and Integrated Windows HTTP Authentication. Trusted IPs can also be configured to exempt internal IP addresses from two-factor authentication.
+
+> [!IMPORTANT]
+> As of July 1, 2019, Microsoft no longer offers MFA Server for new deployments. New customers that want to require multi-factor authentication (MFA) during sign-in events should use cloud-based Azure Multi-Factor Authentication.
+>
+> To get started with cloud-based MFA, see [Tutorial: Secure user sign-in events with Azure Multi-Factor Authentication](tutorial-enable-azure-mfa.md).
+>
+> Existing customers that activated MFA Server before July 1, 2019 can download the latest version, future updates, and generate activation credentials as usual.
+>
+> When you use cloud-based Azure Multi-Factor Authentication, there is no alternative to the IIS plugin provided by Azure Multi-Factor Authentication (MFA) Server. Instead, use Web Application Proxy (WAP) with Active Directory Federation Services (AD FS) or Azure Active Directory's Application Proxy.
 
 ![IIS Authentication in MFA Server](./media/howto-mfaserver-iis/iis.png)
 
@@ -52,7 +61,7 @@ To secure an IIS web application that uses Integrated Windows HTTP authenticatio
 1. In the Azure Multi-Factor Authentication Server, click the IIS Authentication icon in the left menu.
 2. Click the **HTTP** tab.
 3. Click **Add**.
-4. In the Add Base URL dialogue box, enter the URL for the website where HTTP authentication is performed (like <http://localhost/owa>) and provide an Application name (optional). The Application name appears in Azure Multi-Factor Authentication reports and may be displayed within SMS or Mobile App authentication messages.
+4. In the Add Base URL dialogue box, enter the URL for the website where HTTP authentication is performed (like `http://localhost/owa`) and provide an Application name (optional). The Application name appears in Azure Multi-Factor Authentication reports and may be displayed within SMS or Mobile App authentication messages.
 5. Adjust the Idle timeout and Maximum session times if the default is not sufficient.
 6. Check the **Require Multi-Factor Authentication user match** box if all users have been or will be imported into the Server and subject to multi-factor authentication. If a significant number of users have not yet been imported into the Server and/or will be exempt from multi-factor authentication, leave the box unchecked.
 7. Check the **Cookie cache** box if desired.
@@ -73,4 +82,4 @@ The Trusted IPs allows users to bypass Azure Multi-Factor Authentication for web
 1. In the IIS Authentication section, click the **Trusted IPs** tab.
 2. Click **Add**.
 3. When the Add Trusted IPs dialog box appears, select the **Single IP**, **IP range**, or **Subnet** radio button.
-4. Enter the IP address, range of IP addresses or subnet that should be whitelisted. If entering a subnet, select the appropriate Netmask and click **OK**. The whitelist has now been added.
+4. Enter the IP address, range of IP addresses or subnet that should be allowed. If entering a subnet, select the appropriate Netmask and click **OK**.

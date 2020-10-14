@@ -1,21 +1,9 @@
 ---
-title: Get started with PowerShell - Azure Batch | Microsoft Docs
+title: Get started with PowerShell
 description: A quick introduction to the Azure PowerShell cmdlets you can use to manage Batch resources.
-services: batch
-documentationcenter: ''
-author: laurenhughes
-manager: jeconnoc
-editor: ''
-
-ms.assetid: 
-ms.service: batch
-ms.devlang: NA
-ms.topic: conceptual
-ms.tgt_pltfrm: powershell
-ms.workload: big-compute
+ms.topic: how-to
 ms.date: 01/15/2019
-ms.author: lahugh
-ms.custom: seodec18
+ms.custom: seodec18, devx-track-azurepowershell
 ---
 
 # Manage Batch resources with PowerShell cmdlets
@@ -28,17 +16,17 @@ This article is based on cmdlets in Az Batch module 1.0.0. We recommend that you
 
 ## Prerequisites
 
-* [Install and configure the Azure PowerShell module](/powershell/azure/overview). To install a specific Azure Batch module, such as a pre-release module, see the [PowerShell Gallery](https://www.powershellgallery.com/packages/Az.Batch/1.0.0).
+* [Install and configure the Azure PowerShell module](/powershell/azure/). To install a specific Azure Batch module, such as a pre-release module, see the [PowerShell Gallery](https://www.powershellgallery.com/packages/Az.Batch/1.0.0).
 
 * Run the **Connect-AzAccount** cmdlet to connect to your subscription (the Azure Batch cmdlets ship in the Azure Resource Manager module):
 
-  ```PowerShell
+  ```powershell
   Connect-AzAccount
   ```
 
 * **Register with the Batch provider namespace**. You only need to perform this operation **once per subscription**.
   
-  ```PowerShell
+  ```powershell
   Register-AzResourceProvider -ProviderNamespace Microsoft.Batch
   ```
 
@@ -48,13 +36,13 @@ This article is based on cmdlets in Az Batch module 1.0.0. We recommend that you
 
 **New-AzBatchAccount** creates a Batch account in a specified resource group. If you don't already have a resource group, create one by running the [New-AzResourceGroup](/powershell/module/az.resources/new-azresourcegroup) cmdlet. Specify one of the Azure regions in the **Location** parameter, such as "Central US". For example:
 
-```PowerShell
+```powershell
 New-AzResourceGroup –Name MyBatchResourceGroup –Location "Central US"
 ```
 
 Then, create a Batch account in the resource group. Specify a name for the account in <*account_name*>, and the location and name of your resource group. Creating the Batch account can take some time to complete. For example:
 
-```PowerShell
+```powershell
 New-AzBatchAccount –AccountName <account_name> –Location "Central US" –ResourceGroupName <res_group_name>
 ```
 
@@ -65,7 +53,7 @@ New-AzBatchAccount –AccountName <account_name> –Location "Central US" –Res
 
 **Get-AzBatchAccountKeys** shows the access keys associated with an Azure Batch account. For example, run the following to get the primary and secondary keys of the account you created.
 
- ```PowerShell
+ ```powershell
 $Account = Get-AzBatchAccountKeys –AccountName <account_name>
 
 $Account.PrimaryAccountKey
@@ -77,7 +65,7 @@ $Account.SecondaryAccountKey
 
 **New-AzBatchAccountKey** generates a new primary or secondary account key for an Azure Batch account. For example, to generate a new primary key for your Batch account, type:
 
-```PowerShell
+```powershell
 New-AzBatchAccountKey -AccountName <account_name> -KeyType Primary
 ```
 
@@ -88,7 +76,7 @@ New-AzBatchAccountKey -AccountName <account_name> -KeyType Primary
 
 **Remove-AzBatchAccount** deletes a Batch account. For example:
 
-```PowerShell
+```powershell
 Remove-AzBatchAccount -AccountName <account_name>
 ```
 
@@ -100,7 +88,7 @@ You can authenticate to manage Batch resources using either shared key authentic
 
 ### Shared key authentication
 
-```PowerShell
+```powershell
 $context = Get-AzBatchAccountKeys -AccountName <account_name>
 ```
 
@@ -109,7 +97,7 @@ $context = Get-AzBatchAccountKeys -AccountName <account_name>
 
 ### Azure Active Directory authentication
 
-```PowerShell
+```powershell
 $context = Get-AzBatchAccount -AccountName <account_name>
 ```
 
@@ -121,12 +109,12 @@ When using many of these cmdlets, in addition to passing a BatchContext object, 
 
 ### Create a Batch pool
 
-When creating or updating a Batch pool, you select either the cloud services configuration or the virtual machine configuration for the operating system on the compute nodes (see [Batch feature overview](batch-api-basics.md#pool)). If you specify the cloud services configuration, your compute nodes are imaged with one of the [Azure Guest OS releases](../cloud-services/cloud-services-guestos-update-matrix.md#releases). If you specify the virtual machine configuration, you can either specify one of the supported Linux or Windows VM images listed in the [Azure Virtual Machines Marketplace][vm_marketplace], or provide a custom image that you have prepared.
+When creating or updating a Batch pool, you select either the cloud services configuration or the virtual machine configuration for the operating system on the compute nodes (see [Nodes and pools](nodes-and-pools.md#configurations)). If you specify the cloud services configuration, your compute nodes are imaged with one of the [Azure Guest OS releases](../cloud-services/cloud-services-guestos-update-matrix.md#releases). If you specify the virtual machine configuration, you can either specify one of the supported Linux or Windows VM images listed in the [Azure Virtual Machines Marketplace][vm_marketplace], or provide a custom image that you have prepared.
 
 When you run **New-AzBatchPool**, pass the operating system settings in a PSCloudServiceConfiguration or PSVirtualMachineConfiguration object. For example, the following snippet creates a Batch pool with size Standard_A1 compute nodes in the virtual machine configuration, imaged with Ubuntu Server 18.04-LTS. Here, the **VirtualMachineConfiguration** parameter specifies the *$configuration* variable as the PSVirtualMachineConfiguration object. The **BatchContext** parameter specifies a previously defined variable *$context* as the BatchAccountContext object.
 
-```PowerShell
-$imageRef = New-Object -TypeName "Microsoft.Azure.Commands.Batch.Models.PSImageReference" -ArgumentList @("UbuntuServer","Canonical","18.04.0-LTS")
+```powershell
+$imageRef = New-Object -TypeName "Microsoft.Azure.Commands.Batch.Models.PSImageReference" -ArgumentList @("UbuntuServer","Canonical","18.04-LTS")
 
 $configuration = New-Object -TypeName "Microsoft.Azure.Commands.Batch.Models.PSVirtualMachineConfiguration" -ArgumentList @($imageRef, "batch.node.ubuntu 18.04")
 
@@ -143,7 +131,7 @@ Use cmdlets such as **Get-AzBatchPool**, **Get-AzBatchJob**, and **Get-AzBatchTa
 
 As an example, use **Get-AzBatchPools** to find your pools. By default this queries for all pools under your account, assuming you already stored the BatchAccountContext object in *$context*:
 
-```PowerShell
+```powershell
 Get-AzBatchPool -BatchContext $context
 ```
 
@@ -151,7 +139,7 @@ Get-AzBatchPool -BatchContext $context
 
 You can supply an OData filter using the **Filter** parameter to find only the objects you’re interested in. For example, you can find all pools with IDs starting with “myPool”:
 
-```PowerShell
+```powershell
 $filter = "startswith(id,'myPool')"
 
 Get-AzBatchPool -Filter $filter -BatchContext $context
@@ -163,7 +151,7 @@ This method is not as flexible as using “Where-Object” in a local pipeline. 
 
 An alternative to an OData filter is to use the **Id** parameter. To query for a specific pool with id "myPool":
 
-```PowerShell
+```powershell
 Get-AzBatchPool -Id "myPool" -BatchContext $context
 ```
 
@@ -173,7 +161,7 @@ The **Id** parameter supports only full-ID search; not wildcards or OData-style 
 
 By default, each cmdlet returns a maximum of 1000 objects. If you reach this limit, either refine your filter to bring back fewer objects, or explicitly set a maximum using the **MaxCount** parameter. For example:
 
-```PowerShell
+```powershell
 Get-AzBatchTask -MaxCount 2500 -BatchContext $context
 ```
 
@@ -185,13 +173,13 @@ Batch cmdlets use the PowerShell pipeline to send data between cmdlets. This has
 
 For example, find and display all tasks under your account:
 
-```PowerShell
+```powershell
 Get-AzBatchJob -BatchContext $context | Get-AzBatchTask -BatchContext $context
 ```
 
 Restart (reboot) every compute node in a pool:
 
-```PowerShell
+```powershell
 Get-AzBatchComputeNode -PoolId "myPool" -BatchContext $context | Restart-AzBatchComputeNode -BatchContext $context
 ```
 
@@ -201,25 +189,25 @@ Application packages provide a simplified way to deploy applications to the comp
 
 **Create** an application:
 
-```PowerShell
+```powershell
 New-AzBatchApplication -AccountName <account_name> -ResourceGroupName <res_group_name> -ApplicationId "MyBatchApplication"
 ```
 
 **Add** an application package:
 
-```PowerShell
+```powershell
 New-AzBatchApplicationPackage -AccountName <account_name> -ResourceGroupName <res_group_name> -ApplicationId "MyBatchApplication" -ApplicationVersion "1.0" -Format zip -FilePath package001.zip
 ```
 
 Set the **default version** for the application:
 
-```PowerShell
+```powershell
 Set-AzBatchApplication -AccountName <account_name> -ResourceGroupName <res_group_name> -ApplicationId "MyBatchApplication" -DefaultVersion "1.0"
 ```
 
 **List** an application's packages
 
-```PowerShell
+```powershell
 $application = Get-AzBatchApplication -AccountName <account_name> -ResourceGroupName <res_group_name> -ApplicationId "MyBatchApplication"
 
 $application.ApplicationPackages
@@ -227,13 +215,13 @@ $application.ApplicationPackages
 
 **Delete** an application package
 
-```PowerShell
+```powershell
 Remove-AzBatchApplicationPackage -AccountName <account_name> -ResourceGroupName <res_group_name> -ApplicationId "MyBatchApplication" -ApplicationVersion "1.0"
 ```
 
 **Delete** an application
 
-```PowerShell
+```powershell
 Remove-AzBatchApplication -AccountName <account_name> -ResourceGroupName <res_group_name> -ApplicationId "MyBatchApplication"
 ```
 
@@ -246,7 +234,7 @@ You can specify one or more application packages for deployment when you create 
 
 Specify the `-ApplicationPackageReference` option when creating a pool to deploy an application package to the pool's nodes as they join the pool. First, create a **PSApplicationPackageReference** object, and configure it with the application ID and package version you want to deploy to the pool's compute nodes:
 
-```PowerShell
+```powershell
 $appPackageReference = New-Object Microsoft.Azure.Commands.Batch.Models.PSApplicationPackageReference
 
 $appPackageReference.ApplicationId = "MyBatchApplication"
@@ -254,9 +242,10 @@ $appPackageReference.ApplicationId = "MyBatchApplication"
 $appPackageReference.Version = "1.0"
 ```
 
-Now create the pool, and specify the package reference object as the argument to the `ApplicationPackageReferences` option:
+Now create the configuration and pool. This example uses the **CloudServiceConfiguration** parameter with a `PSCloudServiceConfiguration` type object initialized in `$configuration`, which sets the **OSFamily** to `6` for 'Windows Server 2019' and **OSVersion** to `*`. Specify the package reference object as the argument to the `ApplicationPackageReferences` option:
 
-```PowerShell
+```powershell
+$configuration = New-Object -TypeName "Microsoft.Azure.Commands.Batch.Models.PSCloudServiceConfiguration" -ArgumentList @(6,"*")  # 6 = OSFamily 'Windows Server 2019'
 New-AzBatchPool -Id "PoolWithAppPackage" -VirtualMachineSize "Small" -CloudServiceConfiguration $configuration -BatchContext $context -ApplicationPackageReferences $appPackageReference
 ```
 
@@ -269,7 +258,7 @@ You can find more information on application packages in [Deploy applications to
 
 To update the applications assigned to an existing pool, first create a PSApplicationPackageReference object with the desired properties (application ID and package version):
 
-```PowerShell
+```powershell
 $appPackageReference = New-Object Microsoft.Azure.Commands.Batch.Models.PSApplicationPackageReference
 
 $appPackageReference.ApplicationId = "MyBatchApplication"
@@ -280,7 +269,7 @@ $appPackageReference.Version = "2.0"
 
 Next, get the pool from Batch, clear out any existing packages, add our new package reference, and update the Batch service with the new pool settings:
 
-```PowerShell
+```powershell
 $pool = Get-AzBatchPool -BatchContext $context -Id "PoolWithAppPackage"
 
 $pool.ApplicationPackageReferences.Clear()
@@ -292,7 +281,7 @@ Set-AzBatchPool -BatchContext $context -Pool $pool
 
 You've now updated the pool's properties in the Batch service. To actually deploy the new application package to compute nodes in the pool, however, you must restart or reimage those nodes. You can restart every node in a pool with this command:
 
-```PowerShell
+```powershell
 Get-AzBatchComputeNode -PoolId "PoolWithAppPackage" -BatchContext $context | Restart-AzBatchComputeNode -BatchContext $context
 ```
 
@@ -304,4 +293,4 @@ Get-AzBatchComputeNode -PoolId "PoolWithAppPackage" -BatchContext $context | Res
 * For detailed cmdlet syntax and examples, see [Azure Batch cmdlet reference](/powershell/module/az.batch).
 * For more information about applications and application packages in Batch, see [Deploy applications to compute nodes with Batch application packages](batch-application-packages.md).
 
-[vm_marketplace]: https://azure.microsoft.com/marketplace/virtual-machines/
+[vm_marketplace]: https://azuremarketplace.microsoft.com/marketplace/apps/category/compute?filters=virtual-machine-images&page=1

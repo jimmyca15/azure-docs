@@ -1,14 +1,15 @@
 ---
-title: 'Configure ExpressRoute Global Reach: Azure CLI | Microsoft Docs'
-description: This article helps you link ExpressRoute circuits together to make a private network between your on-premises networks and enable Global Reach.
+title: 'Azure ExpressRoute: Configure ExpressRoute Global Reach: CLI'
+description: Learn how to link ExpressRoute circuits together to make a private network between your on-premises networks and enable Global Reach by using the Azure CLI.
 services: expressroute
-author: jaredr80
+author: duongau
 
 ms.service: expressroute
-ms.topic: conceptual
+ms.topic: how-to
 ms.date: 12/12/2018
-ms.author: jaredro
-ms.custom: seodec18
+ms.author: duau 
+ms.custom: devx-track-azurecli
+
 
 ---
 
@@ -45,7 +46,7 @@ az account set --subscription <your subscription ID>
 
 ### Identify your ExpressRoute circuits for configuration
 
-You can enable ExpressRoute Global Reach between any two ExpressRoute circuits, as long as they're located in supported countries and were created at different peering locations. If your subscription owns both circuits, you can choose either circuit to run the configuration as explained later in this article. If the two circuits are in different Azure subscriptions, you must have authorization from one Azure subscription and must pass in its authorization key when you run the configuration command in the other Azure subscription.
+You can enable ExpressRoute Global Reach between any two ExpressRoute circuits, as long as they're located in supported countries/regions and were created at different peering locations. If your subscription owns both circuits, you can choose either circuit to run the configuration as explained later in this article. If the two circuits are in different Azure subscriptions, you must have authorization from one Azure subscription and must pass in its authorization key when you run the configuration command in the other Azure subscription.
 
 ## Enable connectivity between your on-premises networks
 
@@ -65,7 +66,7 @@ az network express-route peering connection create -g <ResourceGroupName> --circ
 
 The CLI output looks like this:
 
-```azurecli
+```output
 {
   "addressPrefix": "<__.__.__.__/29>",
   "authorizationKey": null,
@@ -101,7 +102,7 @@ If the two circuits aren't in the same Azure subscription, you need authorizatio
 
    The CLI output looks like this:
 
-   ```azurecli
+   ```output
    {
      "authorizationKey": "<authorizationKey>",
      "authorizationUseStatus": "Available",

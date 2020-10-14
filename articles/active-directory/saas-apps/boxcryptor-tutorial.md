@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Boxcryptor | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Boxcryptor.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: mtillman
-ms.reviewer: barbkess
-
-ms.assetid: c46aa523-b58c-4a95-a800-db2e5e01c542
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 02/07/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Boxcryptor
 
@@ -179,7 +173,7 @@ In this section, you enable Britta Simon to use Azure single sign-on by granting
 
 ### Create Boxcryptor test user
 
-In this section, you create a user called Britta Simon in Boxcryptor. Work with [Boxcryptor support team](mailto:support@boxcryptor.com) to add the users or the domain which is needed to be whitelisted in the Boxcryptor platform. If the domain is added by the team, users will get automatically provisioned to the Boxcryptor platform. Users must be created and activated before you use single sign-on.
+In this section, you create a user called Britta Simon in Boxcryptor. Work with [Boxcryptor support team](mailto:support@boxcryptor.com) to add the users or the domain that must be added to an allow list for the Boxcryptor platform. If the domain is added by the team, users will get automatically provisioned to the Boxcryptor platform. Users must be created and activated before you use single sign-on.
 
 ### Test single sign-on 
 
@@ -193,5 +187,5 @@ When you click the Boxcryptor tile in the Access Panel, you should be automatica
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
 

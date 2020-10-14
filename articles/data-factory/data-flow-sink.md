@@ -1,82 +1,83 @@
 ---
-title: Azure Data Factory Mapping Data Flow Sink Transformation
-description: Azure Data Factory Mapping Data Flow Sink Transformation
+title: Sink transformation in mapping data flow
+description: Learn how to configure a sink transformation in mapping data flow.
 author: kromerm
 ms.author: makromer
+ms.reviewer: daperlov
+manager: anandsub
 ms.service: data-factory
 ms.topic: conceptual
-ms.date: 02/03/2019
+ms.custom: seo-lt-2019
+ms.date: 09/27/2020
 ---
 
-# Mapping Data Flow Sink Transformation
+# Sink transformation in mapping data flow
 
-[!INCLUDE [notes](../../includes/data-factory-data-flow-preview.md)]
+[!INCLUDE[appliesto-adf-asa-md](includes/appliesto-adf-asa-md.md)]
 
-![Sink options](media/data-flow/windows1.png "sink 1")
+After you finish transforming your data, write it into a destination store using the sink transformation. Every data flow requires at least one sink transformation, but you can write to as many sinks as necessary to complete your transformation flow. To write to additional sinks, create new streams via new branches and conditional splits.
 
-At the completion of your data flow transformation, you can sink your transformed data into a destination dataset. In the Sink transformation, you can choose the dataset definition that you wish to use for the destination output data. You may have as many Sink transformation as your data flow requires.
+Each sink transformation is associated with exactly one Azure Data Factory dataset object or linked service. The sink transformation determines the shape and location of the data you want to write to.
 
-A common practice to account for changing incoming data and to account for schema drift is to sink the output data to a folder without a defined schema in the output dataset. You can additionally account for all column changes in your sources by selecting "Allow Schema Drift" at the Source and then automap all fields in the Sink.
+## Inline datasets
 
-You can choose to overwrite, append, or fail the data flow when sinking to a dataset.
+When creating a sink transformation, choose whether your sink information is defined inside a dataset object or within the sink transformation. Most formats are only available in one or the other. Please reference the appropriate connector document to learn how to use a specific connector.
 
-You can also choose "automap" to sink all incoming fields. If you wish to choose the fields that you want to sink to the destination, or if you would like to change the names of the fields at the destination, choose "Off" for "automap" and then click on the Mapping tab to map output fields:
+When a format is supported for both inline and in a dataset object, there are benefits to both. Dataset objects are reusable entities that can be leveraged in other data flows and activities such as Copy. These are especially useful when using a hardened schema. Datasets are not based in Spark and occasionally you may need to override certain settings or schema projection in the sink transformation.
 
-![Sink options](media/data-flow/sink2.png "sink 2")
+Inline datasets are recommended when using flexible schemas, one-off sink instances, or parameterized sinks. If your sink is heavily parameterized, in-line datasets allow you to not create a "dummy" object. Inline datasets are based in spark and their properties are native to data flow.
 
-## Output to one File
-For Azure Storage Blob or Data Lake sink types, you will output the transformed data into a folder. Spark will generate partitioned output data files based on the partitioning scheme being used in the Sink transform. You can set the partitioning scheme by clicking on the "Optimize" tab. If you would like ADF to merge your output into a single file, click on the "Single Partition" radio button.
+To use an inline dataset, select the desired format in the **Sink type** selector. Instead of selecting a sink dataset, you select the linked service you wish to connect to.
 
-![Sink options](media/data-flow/opt001.png "sink options")
+![Inline dataset](media/data-flow/inline-selector.png "Inline dataset")
+
+##  <a name="supported-sinks"></a> Supported sink types
+
+Mapping Data Flow follows an extract, load, transform (ELT) approach and works with *staging* datasets that are all in Azure. Currently the following datasets can be used in a source transformation:
+
+| Connector | Format | Dataset/inline |
+| --------- | ------ | -------------- |
+| [Azure Blob Storage](connector-azure-blob-storage.md#mapping-data-flow-properties) | [JSON](format-json.md#mapping-data-flow-properties) <br> [Avro](format-avro.md#mapping-data-flow-properties) <br> [Delimited text](format-delimited-text.md#mapping-data-flow-properties) <br> [Delta (preview)](format-delta.md) <br> [ORC](format-orc.md#mapping-data-flow-properties)<br> [Parquet](format-parquet.md#mapping-data-flow-properties) | ✓/- <br> ✓/- <br> ✓/- <br> -/✓ <br>✓/✓<br> ✓/- |
+| [Azure Data Lake Storage Gen1](connector-azure-data-lake-store.md#mapping-data-flow-properties) | [JSON](format-json.md#mapping-data-flow-properties) <br> [Avro](format-avro.md#mapping-data-flow-properties) <br> [Delimited text](format-delimited-text.md#mapping-data-flow-properties) <br> [ORC](format-orc.md#mapping-data-flow-properties)<br/> [Parquet](format-parquet.md#mapping-data-flow-properties) | ✓/- <br> ✓/- <br> ✓/- <br>✓/✓<br> ✓/- |
+| [Azure Data Lake Storage Gen2](connector-azure-data-lake-storage.md#mapping-data-flow-properties) | [JSON](format-json.md#mapping-data-flow-properties) <br> [Avro](format-avro.md#mapping-data-flow-properties) <br> [Delimited text](format-delimited-text.md#mapping-data-flow-properties) <br> [Delta (preview)](format-delta.md) <br> [ORC](format-orc.md#mapping-data-flow-properties)<br/> [Parquet](format-parquet.md#mapping-data-flow-properties)  <br> [Common Data Model (preview)](format-common-data-model.md#sink-properties) | ✓/- <br> ✓/- <br> ✓/- <br> -/✓ <br>✓/✓<br> ✓/- <br> -/✓ |
+| [Azure Synapse Analytics](connector-azure-sql-data-warehouse.md#mapping-data-flow-properties) | | ✓/- |
+| [Azure SQL Database](connector-azure-sql-database.md#mapping-data-flow-properties) | | ✓/- |
+| [Azure CosmosDB (SQL API)](connector-azure-cosmos-db.md#mapping-data-flow-properties) | | ✓/- |
+| [Snowflake](connector-snowflake.md) | | ✓/✓ |
+
+Settings  specific to these connectors are located in the **Settings** tab. Information and data flow script examples on these settings are located in the connector documentation. 
+
+Azure Data Factory has access to over [90 native connectors](connector-overview.md). To write data to those other sources from your data flow, use the Copy Activity to load that data from a supported sink.
+
+## Sink settings
+
+Once you have added a sink, configure via the **Sink** tab. Here you can pick or create the dataset your sink writes to. Development values for dataset parameters can be configured in [Debug settings](concepts-data-flow-debug-mode.md) (requires Debug mode to be turned on).
+
+Below is a video explaining a number of different Sink options for text delimited file types:
+
+> [!VIDEO https://www.microsoft.com/videoplayer/embed/RE4tf7T]
+
+![Sink settings](media/data-flow/sink-settings.png "Sink Settings")
+
+**Schema drift:** [Schema Drift](concepts-data-flow-schema-drift.md) is data factory's ability to natively handle flexible schemas in your data flows without needing to explicitly define column changes. Enable **Allow schema drift** to write additional columns on top of what is defined in the sink data schema.
+
+**Validate schema:** If validate schema is selected, the data flow will fail if any column of the incoming source schema is not found in the source projection, or if the data types do not match. Use this setting to enforce that the source data meets the contract of your defined projection. It is very useful in database source scenarios to signal that column names or types have changed.
 
 ## Field mapping
 
-On the Mapping tab of your Sink transformation, you can map the incoming (left side) columns to the destination (right side). When you sink data flows to files, ADF will always write new files to a folder. When you map to a database dataset, you can choose to either generate a new table with this schema (set Save Policy to "overwrite") or insert new rows to an existing table and map the fields to the existing schema.
+Similar to a Select transformation, in the **Mapping** tab of the sink, you can decide which incoming columns will get written. By default, all input columns, including drifted columns, are mapped. This is known as **Auto-mapping**.
 
-You can use multi-select in the mapping table to Link multiple columns with one click, delink multiple columns or map multiple rows to the same column name.
+When you turn off auto-mapping, you'll have the option to add either fixed column-based mappings or rule-based mappings. Rule-based mappings allow you to write expressions with pattern matching while fixed mapping will map logical and physical column names. For more information on rule-based mapping, see [column patterns in mapping data flow](concepts-data-flow-column-pattern.md#rule-based-mapping-in-select-and-sink).
 
-When you wish to always take the incoming set of fields and map them to a target as-is, set the "Allow Schema Drift" setting.
+## Custom sink ordering
 
-![Field Mapping](media/data-flow/multi1.png "multiple options")
+By default, data is written to multiple sinks in a nondeterministic order. The execution engine will write data in parallel as the transformation logic is completed and the sink ordering may vary each run. To specify and exact sink ordering, enable **Custom sink ordering** in the general tab of the data flow. When enabled, sinks will be written sequentially in increasing order.
 
-If you'd like to reset your columns mappings, press the "Remap" button to reset the mappings.
+![Custom sink ordering](media/data-flow/custom-sink-ordering.png "Custom sink ordering")
 
-![Sink options](media/data-flow/sink1.png "Sink One")
+## Data preview in sink
 
-![Sink options](media/data-flow/sink2.png "Sinks")
-
-* Allow Schema Drift and Validate Schema options are now available in Sink. This will allow you to instruct ADF to either fully accept flexible schema definitions (Schema Drift) or fail the Sink if the schema changes (Validate Schema).
-
-* Clear the Folder. ADF will truncate the sink folder contents before writing the destination files in that target folder.
-
-## File name options
-
-   * Default: Allow Spark to name files based on PART defaults
-   * Pattern: Enter a pattern for your output files. For example, "loans[n]" will create loans1.csv, loans2.csv, ...
-   * Per partition: Enter a file name per partition
-   * As data in column: Set the output file to the value of a column
-
-> [!NOTE]
-> File operations will only execute when you are running the Execute Data Flow activity, not while in Data Flow Debug mode
-
-## Database options
-
-* Allow insert, update, delete, upserts. The default is to allow inserts. If you wish to update, upsert, or delete rows, you must first add an alter row transformation to tag rows for those specific actions. Turning off "Allow insert" will stop ADF from inserting new rows from your source.
-* Truncate table (removes all rows from your target table before completing the data flow)
-* Recreate table (performs drop/create of your target table before completing the data flow)
-* Batch size for large data loads. Enter a number to bucket writes into chunks
-* Enable staging: This will instruct ADF to use Polybase when loading Azure Data Warehouse as your sink dataset
-
-> [!NOTE]
-> In Data Flow, you can ask ADF to create a new table definition in your target database by setting a dataset in the Sink transformation that has a new table name. In the SQL dataset, click "Edit" below the table name and enter a new table name. Then, in the Sink Transformation, turn on "Allow Schema Drift". Seth the "Import Schema" setting to None.
-
-![Source Transformation schema](media/data-flow/dataset2.png "SQL Schema")
-
-![SQL Sink Options](media/data-flow/alter-row2.png "SQL Options")
-
-> [!NOTE]
-> When updating or deleting rows in your database sink, you must set the key column. This way, Alter Row is able to determine the unique row in the DML.
+When fetching a data preview on a debug cluster, no data will be written to your sink. A snapshot of what the data looks like will be returned, but nothing will be written to your destination. To test writing data into your sink, run a pipeline debug from the pipeline canvas.
 
 ## Next steps
-
-Now that you've created your data flow, add an [Execute Data Flow activity to your pipeline](concepts-data-flow-overview.md).
+Now that you've created your data flow, add a [Data Flow activity to your pipeline](concepts-data-flow-overview.md).

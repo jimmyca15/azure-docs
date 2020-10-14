@@ -1,12 +1,13 @@
 ---
-title: Import data from VHDs and copy to managed disks with Microsoft Azure Data Box| Microsoft Docs
+title: "Tutorial: Copy from VHDs to managed disks"
+titleSuffix: Azure Data Box
 description: Learn how to copy data from VHDs from on-premises VM workloads to your Azure Data Box
 services: databox
 author: alkohli
 ms.service: databox
 ms.subservice: pod
 ms.topic: tutorial
-ms.date: 02/27/2019
+ms.date: 09/03/2019
 ms.author: alkohli
 #Customer intent: As an IT admin, I need to be able to copy data to Data Box to upload on-premises VM data from my server onto Azure.
 ---
@@ -17,10 +18,10 @@ This tutorial describes how to use the Azure Data Box to migrate you on-premises
 In this tutorial, you learn how to:
 
 > [!div class="checklist"]
+>
 > * Review prerequisites
 > * Connect to Data Box
 > * Copy data to Data Box
-
 
 ## Prerequisites
 
@@ -34,6 +35,8 @@ Before you begin, make sure that:
     - Supported [managed disk sizes in Azure object size limits](data-box-limits.md#azure-object-size-limits).
     - [Introduction to Azure managed disks](/azure/virtual-machines/windows/managed-disks-overview). 
 
+5. You've maintained a copy of the source data until you've confirmed that the Data Box transferred your data into Azure Storage.
+
 ## Connect to Data Box
 
 Based on the resource groups specified, Data Box creates one share for each associated resource group. For example, if `mydbmdrg1` and `mydbmdrg2` were created when placing the order, the following shares are created:
@@ -41,7 +44,7 @@ Based on the resource groups specified, Data Box creates one share for each asso
 - `mydbmdrg1_MDisk`
 - `mydbmdrg2_MDisk`
 
-Within each share, the following four folders are created which correspond to containers in your storage account.
+Within each share, the following three folders are created which correspond to containers in your storage account.
 
 - Premium SSD
 - Standard HDD
@@ -51,8 +54,8 @@ The following table shows the UNC paths to the shares on your Data Box.
  
 |        Connection protocol           |             UNC path to the share                                               |
 |-------------------|--------------------------------------------------------------------------------|
-| SMB |`\\<DeviceIPAddress>\<ResourceGroupName_MDisk>\<Premium SSD>\file1.vhd`<br> `\\<DeviceIPAddress>\<ResourceGroupName_MDisk>\<Standard HDD>\file2.vhd`<br> `\\<DeviceIPAddress>\<ResourceGroupName_MDisk>\<Standard SSD>\file3.vhd` |  
-| NFS |`//<DeviceIPAddress>/<ResourceGroup1_MDisk>/<Premium SSD>/file1.vhd`<br> `//<DeviceIPAddress>/<ResourceGroupName_MDisk>/<Standard HDD>/file2.vhd`<br> `//<DeviceIPAddress>/<ResourceGroupName_MDisk>/<Standard SSD>/file3.vhd` |
+| SMB |`\\<DeviceIPAddress>\<ResourceGroupName_MDisk>\<PremiumSSD>\file1.vhd`<br> `\\<DeviceIPAddress>\<ResourceGroupName_MDisk>\<StandardHDD>\file2.vhd`<br> `\\<DeviceIPAddress>\<ResourceGroupName_MDisk>\<StandardSSD>\file3.vhd` |  
+| NFS |`//<DeviceIPAddress>/<ResourceGroup1_MDisk>/<PremiumSSD>/file1.vhd`<br> `//<DeviceIPAddress>/<ResourceGroupName_MDisk>/<StandardHDD>/file2.vhd`<br> `//<DeviceIPAddress>/<ResourceGroupName_MDisk>/<StandardSSD>/file3.vhd` |
 
 Based on whether you use SMB or NFS to connect to Data Box shares, the steps to connect are different.
 
@@ -68,11 +71,11 @@ If using a Windows Server host computer, follow these steps to connect to the Da
     > [!NOTE]
     > The credentials for all the shares for managed disks are identical.
 
-    ![Get share credentials 1](media/data-box-deploy-copy-data-from-vhds/get-share-credentials1.png)
+    ![Get share credentials](media/data-box-deploy-copy-data-from-vhds/get-share-credentials1.png)
 
 2. From the Access share and copy data dialog box, copy the **Username** and the **Password** for the share. Click **OK**.
     
-    ![Get share credentials 1](media/data-box-deploy-copy-data-from-vhds/get-share-credentials2.png)
+    ![Get share credentials 2](media/data-box-deploy-copy-data-from-vhds/get-share-credentials2.png)
 
 3. To access the shares associated with your resource (*mydbmdrg1* in the following example) from your host computer, open a command window. At the command prompt, type:
 
@@ -87,14 +90,14 @@ If using a Windows Server host computer, follow these steps to connect to the Da
 
     ```
     C:\>net use \\169.254.250.200\mydbmdrgl_MDisk /u:mdisk
-    Enter the password for ‘mdisk’ to connect to '169.254.250.200':
+    Enter the password for 'mdisk' to connect to '169.254.250.200':
     The command completed successfully.
     C: \>
     ```
 
 4. Press  Windows + R. In the **Run** window, specify the `\\<device IP address>\<ShareName>`. Click **OK** to open File Explorer.
     
-    ![Connect to share via File Explorer 2](media/data-box-deploy-copy-data-from-vhds/connect-shares-file-explorer1.png)
+    ![Connect to share via File Explorer](media/data-box-deploy-copy-data-from-vhds/connect-shares-file-explorer1.png)
 
     You should now see the following precreated folders within each share.
     
@@ -107,7 +110,7 @@ If you are using a Linux host computer, perform the following steps to configure
 
 1. Supply the IP addresses of the allowed clients that can access the share. In the local web UI, go to **Connect and copy** page. Under **NFS settings**, click **NFS client access**.
 
-    ![Configure NFS client access 1](media/data-box-deploy-copy-data-from-vhds/nfs-client-access1.png)
+    ![Configure NFS client access](media/data-box-deploy-copy-data-from-vhds/nfs-client-access1.png)
 
 2. Supply the IP address of the NFS client and click **Add**. You can configure access for multiple NFS clients by repeating this step. Click **OK**.
 

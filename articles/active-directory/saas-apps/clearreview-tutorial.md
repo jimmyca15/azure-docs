@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Clear Review | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Clear Review.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: mtillman
-ms.reviewer: barbkess
-
-ms.assetid: 8264159a-11a2-4a8c-8285-4efea0adac8c
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
-ms.date: 01/21/2019
+ms.date: 04/16/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Clear Review
 
@@ -34,8 +28,11 @@ If you don't have an Azure subscription, [create a free account](https://azure.m
 
 To configure Azure AD integration with Clear Review, you need the following items:
 
-* An Azure AD subscription. If you don't have an Azure AD environment, you can get one-month trial [here](https://azure.microsoft.com/pricing/free-trial/)
+* An Azure AD subscription. If you don't have an Azure AD environment, you can get a [free account](https://azure.microsoft.com/free/)
 * Clear Review single sign-on enabled subscription
+
+> [!NOTE]
+> This integration is also available to use from Azure AD US Government Cloud environment. You can find this application in the Azure AD US Government Cloud Application Gallery and configure it in the same way as you do from public cloud.
 
 ## Scenario description
 
@@ -97,9 +94,9 @@ To configure Azure AD single sign-on with Clear Review, perform the following st
 
 	![Edit Basic SAML Configuration](common/edit-urls.png)
 
-4. On the **Basic SAML Configuration** section, If you wish to configure the application in **IDP** initiated mode, perform the following steps:
+4. On the **Basic SAML Configuration** section, if you wish to configure the application in **IDP** initiated mode, perform the following steps:
 
-    ![Clear Review Domain and URLs single sign-on information](common/idp-intiated.png)
+    ![Screenshot shows the Basic SAML Configuration, where you can enter Identifier, Reply U R L, and select Save.](common/idp-intiated.png)
 
     a. In the **Identifier** text box, type a URL using the following pattern:
     `https://<customer name>.clearreview.com/sso/metadata/`
@@ -109,7 +106,7 @@ To configure Azure AD single sign-on with Clear Review, perform the following st
 
 5. Click **Set additional URLs** and perform the following step if you wish to configure the application in **SP** initiated mode:
 
-    ![Clear Review Domain and URLs single sign-on information](common/metadata-upload-additional-signon.png)
+    ![Screenshot shows Set additional U R Ls where you can enter a Sign on U R L.](common/metadata-upload-additional-signon.png)
 
     In the **Sign-on URL** text box, type a URL using the following pattern:
     `https://<customer name>.clearreview.com`
@@ -117,33 +114,21 @@ To configure Azure AD single sign-on with Clear Review, perform the following st
 	> [!NOTE]
 	> These values are not real. Update these values with the actual Identifier, Reply URL and Sign-on URL. Contact [Clear Review Client support team](https://clearreview.com/contact/) to get these values. You can also refer to the patterns shown in the **Basic SAML Configuration** section in the Azure portal.
 
-6. Clear Review application expects the SAML assertions in a specific format. Configure the following claims for this application. You can manage the values of these attributes from the **User Attributes** section on application integration page. On the **Set up Single Sign-On with SAML** page, click **Edit** button to open **User Attributes** dialog.
+6. Clear Review application expects the SAML assertions in a specific format, which requires you to add custom attribute mappings to your SAML token attributes configuration. The following screenshot shows the list of default attributes, where as **nameidentifier** is mapped with **user.userprincipalname**. Clear Review application expects **nameidentifier** to be mapped with **user.mail**, so you need to edit the attribute mapping by clicking on **Edit** icon and change the attribute mapping.
 
-	![image](common/edit-attribute.png)
+	![Screenshot shows User Attributes with the Edit icon selected.](common/edit-attribute.png)
 
-7. In the **User Claims** section on the **User Attributes** dialog, edit the claims by using **Edit icon** or add the claims by using **Add new claim** to configure SAML token attribute as shown in the image above and perform the following steps:
-    
-	| Name | Source Attribute | 
-	| ---------------| --------------- |
-	| Name identifier value   | user.mail |
+7. On the **User Attributes & Claims** dialog, perform the following steps:
 
-	a. Click **Add new claim** to open the **Manage user claims** dialog.
+	a. Click **Edit icon** on the right of **Name identifier value**.
 
-	![image](common/new-save-attribute.png)
+	![Screenshot shows User Attributes & Claims with the Edit icon selected.](./media/clearreview-tutorial/attribute02.png)
 
-	![image](common/new-attribute-details.png)
+	![Screenshot shows the Manage user claims dialog box where you can enter the values described.](./media/clearreview-tutorial/attribute01.png)
 
-	b. In the **Name** textbox, type the attribute name shown for that row.
+	b. From the **Source attribute** list, select the **user.mail** attribute value for that row.
 
-	c. Leave the **Namespace** blank.
-
-	d. Select Source as **Attribute**.
-
-	e. From the **Source attribute** list, type the attribute value shown for that row.
-
-	f. Click **Ok**
-
-	g. Click **Save**.
+	c. Click **Save**.
 
 8. On the **Set up Single Sign-On with SAML** page, in the **SAML Signing Certificate** section, click **Download** to download the **Certificate (Base64)** from the given options as per your requirement and save it on your computer.
 
@@ -155,7 +140,7 @@ To configure Azure AD single sign-on with Clear Review, perform the following st
 
 	a. Login URL
 
-	b. Azure Ad Identifier
+	b. Azure AD Identifier
 
 	c. Logout URL
 
@@ -165,17 +150,17 @@ To configure Azure AD single sign-on with Clear Review, perform the following st
 
 2. Select **Admin** from the left navigation.
 
-	![Configure Single Sign-On Save button](./media/clearreview-tutorial/tutorial_clearreview_app_admin1.png)
+	![Screenshot shows the Clear Review portal with Admin selected.](./media/clearreview-tutorial/tutorial_clearreview_app_admin1.png)
 
-3. Select **Change** at the bottom of the page.
+3. In the **Integrations** section at the bottom of the page click the **Change** button to the right of **Single Sign-On Settings**.
 
-	![Configure Single Sign-On Save button](./media/clearreview-tutorial/tutorial_clearreview_app_admin2.png)
+	![Screenshot shows the Single Sign-On Change button.](./media/clearreview-tutorial/tutorial_clearreview_app_admin2.png)
 
 4. Perform following steps on **Single Sign-On Settings** page
 
-	![Configure Single Sign-On Save button](./media/clearreview-tutorial/tutorial_clearreview_app_admin3.png)
+	![Screenshot shows the Single Sign-On Settings page where you can enter the information in this step.](./media/clearreview-tutorial/tutorial_clearreview_app_admin3.png)
 
-	a. In the **Issuer URL** textbox, paste the value of **Azure Ad Identifier** which you have copied from Azure portal.
+	a. In the **Issuer URL** textbox, paste the value of **Azure AD Identifier** which you have copied from Azure portal.
 
 	b. In the **SAML Endpoint** textbox, paste the value of **Login URL** which you have copied from Azure portal.	
 
@@ -183,7 +168,7 @@ To configure Azure AD single sign-on with Clear Review, perform the following st
 
 	d. Open the downloaded certificate in notepad and paste the content in the **X.509 Certificate** textbox.	
 
-5. Click **Save**.
+	e. Click **Save**.
 
 ### Create an Azure AD test user 
 
@@ -252,5 +237,5 @@ When you click the Clear Review tile in the Access Panel, you should be automati
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
 

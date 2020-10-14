@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Acadia | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Acadia.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: daveba
-ms.reviewer: barbkess
-
-ms.assetid: e02bfb28-b3c9-424c-8c42-0c8dfa12342a
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 1/17/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Acadia
 
@@ -100,7 +94,7 @@ To configure Azure AD single sign-on with Acadia, perform the following steps:
 
 4. On the **Basic SAML Configuration** section, If you wish to configure the application in **IDP** initiated mode, perform the following steps:
 
-    ![Acadia Domain and URLs single sign-on information](common/idp-intiated.png)
+    ![Screenshot that shows the screen elements required to configure the application in IDP initiated mode.](common/idp-intiated.png)
 
     a. In the **Identifier** text box, type a URL using the following pattern:
     `https://<CUSTOMER>.acadia.sysalli.com/shibboleth`
@@ -203,4 +197,4 @@ When you click the Acadia tile in the Access Panel, you should be automatically 
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)

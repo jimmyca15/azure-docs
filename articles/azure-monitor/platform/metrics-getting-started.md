@@ -3,7 +3,7 @@ title: Getting started with Azure metrics explorer
 description: Learn how to create your first metric chart with Azure metrics explorer.
 author: vgorbenko
 services: azure-monitor
-ms.service: azure-monitor
+
 ms.topic: conceptual
 ms.date: 02/25/2019
 ms.author: vitalyg
@@ -19,7 +19,7 @@ Azure Monitor metrics explorer is a component of the Microsoft Azure portal that
 
 1. Try [applying dimension filters and splitting](#apply-dimension-filters-and-splitting). The filters and splitting allow you to analyze which segments of the metric contribute to the overall metric value and identify possible outliers.
 
-1. Use [advanced settings](#advanced-chart-settings-and-next-steps) to customize the chart before pinning to dashboards. [Configure alerts](alerts-metric-overview.md) to receive notifications when the metric value exceeds or drops below a threshold.
+1. Use [advanced settings](#advanced-chart-settings) to customize the chart before pinning to dashboards. [Configure alerts](alerts-metric-overview.md) to receive notifications when the metric value exceeds or drops below a threshold.
 
 ## Create your first metric chart
 
@@ -35,16 +35,22 @@ To create a metric chart, from your resource, resource group, subscription, or A
 
     > ![Select a metric](./media/metrics-getting-started/metric-picker.png)
 
-4. Optionally, you can change the metric aggregation. For example, you might want your chart to show minimum, maximum, or average values of the metric.
+4. Optionally, you can [change the metric aggregation](metrics-charts.md#changing-aggregation). For example, you might want your chart to show minimum, maximum, or average values of the metric.
 
-> [!NOTE]
+> [!TIP]
 > Use the **Add metric** button and repeat these steps if you want to see multiple metrics plotted in the same chart. For multiple charts in one view, select the **Add chart** button on top.
 
 ## Select a time range
 
+> [!WARNING]
+> [Most metrics in Azure are stored for 93 days](data-platform-metrics.md#retention-of-metrics). However, you can query no more than 30 days worth of data on any single chart. This limitation doesn't apply to [log-based metrics](../app/pre-aggregated-metrics-log-metrics.md#log-based-metrics).
+
 By default, the chart shows the most recent 24 hours of metrics data. Use the **time picker** panel to change the time range, zoom in, or zoom out on your chart. 
 
 ![Change time range panel](./media/metrics-getting-started/time-picker.png)
+
+> [!TIP]
+> Use the **time brush** to investigate an interesting area of the chart (spike or a dip). Put the mouse pointer at the beginning of the area, click and hold the left mouse button, drag to the other side of area and then release the button. The chart will zoom in on that time range. 
 
 ## Apply dimension filters and splitting
 
@@ -56,12 +62,13 @@ By default, the chart shows the most recent 24 hours of metrics data. Use the **
 
 See [examples of the charts](metric-chart-samples.md) that have filtering and splitting applied. The article shows the steps were used to configure the charts.
 
-## Advanced chart settings and next steps
+## Advanced chart settings
 
 You can customize chart style, title, and modify advanced chart settings. When done with customization, pin it to a dashboard to save your work. You can also configure metrics alerts. Follow [product documentation](metrics-charts.md) to learn about these and other advanced features of Azure Monitor metrics explorer.
 
 ## Next steps
 
+* [Learn about advanced features of Metrics Explorer](metrics-charts.md)
+* [Troubleshooting Metrics Explorer](metrics-troubleshoot.md)
 * [See a list of available metrics for Azure services](metrics-supported.md)
-* [Learn about advanced features of Metric Explorer](metrics-charts.md)
 * [See examples of configured charts](metric-chart-samples.md)

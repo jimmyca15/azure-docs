@@ -6,18 +6,16 @@
     href: quickstart.md
   - name: PowerShell - Quickstart
     href: quickstart-powershell.md
-- name: Features & tooling
-  items:
-  - name: Features & tools
-    href: features.md
+- name: Features & tools
+  href: features.md
 - name: Tutorials
   items:
   - name: Ansible
     items:
     - name: Run Ansible playbook
-      href: /azure/ansible/ansible-run-playbook-in-cloudshell?toc=/azure/cloud-shell/toc.json&bc=/azure/bread/toc.json
+      href: /azure/developer/ansible/getting-started-cloud-shell?bc=%252fazure%252fbread%252ftoc.json&toc=%252fazure%252fcloud-shell%252ftoc.json
     - name: Manage your Azure dynamic inventories
-      href: /azure/ansible/ansible-manage-azure-dynamic-inventories?toc=/azure/cloud-shell/toc.json&bc=/azure/bread/toc.json
+      href: /azure/developer/ansible/dynamic-inventory-configure?bc=%252fazure%252fbread%252ftoc.json&toc=%252fazure%252fcloud-shell%252ftoc.json
   - name: Terraform
     items:
     - name: Create an execution plan
@@ -34,6 +32,8 @@
     href: msi-authorization.md
   - name: Embed Cloud Shell
     href: embed-cloud-shell.md
+  - name: Cloud Shell in Azure Virtual Network
+    href: private-vnet.md
 - name: Use the Cloud Shell editor
   href: using-cloud-shell-editor.md
 - name: Troubleshooting & limitations

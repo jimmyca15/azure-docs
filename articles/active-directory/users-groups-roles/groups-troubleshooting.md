@@ -1,42 +1,44 @@
 ---
-title: Fix dynamic membership problems for groups - Azure Active Directory | Microsoft Docs
-description: Troubleshooting tips for dynamic membership for groups in Azure AD.
+title: Fix problems with dynamic group memberships - Azure AD | Microsoft Docs
+description: Troubleshooting tips for dynamic group membership in Azure Active Directory
 services: active-directory
 author: curtand
-manager: mtillman
-
+manager: daveba
 ms.service: active-directory
 ms.workload: identity
 ms.subservice: users-groups-roles
-ms.topic: article
-ms.date: 01/31/2019
+ms.topic: troubleshooting
+ms.date: 11/08/2019
 ms.author: curtand
 ms.reviewer: krbain
 ms.custom: it-pro
-
 ms.collection: M365-identity-device-management
 ---
 # Troubleshoot and resolve groups issues
 
 ## Troubleshooting group creation issues
+
 **I disabled security group creation in the Azure portal but groups can still be created via Powershell**
 The **User can create security groups in Azure portals** setting in the Azure portal controls whether or not non-admin users can create security groups in the Access panel or the Azure portal. It does not control security group creation via Powershell.
 
 To disable group creation for non-admin users in Powershell:
 1. Verify that non-admin users are allowed to create groups:
    
+
+   ```powershell
+   Get-MsolCompanyInformation | Format-List UsersPermissionToCreateGroupsEnabled
    ```
-   PS C:\> Get-MsolCompanyInformation | fl UsersPermissionToCreateGroupsEnabled
-   ```
+
   
 2. If it returns `UsersPermissionToCreateGroupsEnabled : True`, then non-admin users can create groups. To disable this feature:
   
+
    ``` 
    Set-MsolCompanySettings -UsersPermissionToCreateGroupsEnabled $False
    ```
 
 <br/>**I received a max groups allowed error when trying to create a Dynamic Group in Powershell**<br/>
-If you receive a message in Powershell indicating _Dynamic group policies max allowed groups count reached_, this means you have reached the max limit for Dynamic groups in your tenant. The max number of Dynamic groups per tenant is 5,000.
+If you receive a message in Powershell indicating _Dynamic group policies max allowed groups count reached_, this means you have reached the max limit for Dynamic groups in your organization. The max number of Dynamic groups per organization is 5,000.
 
 To create any new Dynamic groups, you'll first need to delete some existing Dynamic groups. There's no way to increase the limit.
 
@@ -47,7 +49,7 @@ To create any new Dynamic groups, you'll first need to delete some existing Dyna
 For devices, check the device properties to ensure any synced attributes contain the expected values.<br/>
 2. Check the membership processing status to confirm if it is complete. You can check the [membership processing status](groups-create-rule.md#check-processing-status-for-a-rule) and the last updated date on the **Overview** page for the group.
 
-If everything looks good, please allow some time for the group to populate. Depending on the size of your tenant, the group may take up to 24 hours for populating for the first time or after a rule change.
+If everything looks good, please allow some time for the group to populate. Depending on the size of your Azure AD organization, the group may take up to 24 hours for populating for the first time or after a rule change.
 
 **I configured a rule, but now the existing members of the rule are removed**<br/>This is expected behavior. Existing members of the group are removed when a rule is enabled or changed. The users returned from evaluation of the rule are added as members to the group.
 

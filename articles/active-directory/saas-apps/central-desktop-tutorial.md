@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Central Desktop | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Central Desktop.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: mtillman
-ms.reviewer: barbkess
-
-ms.assetid: b805d485-93db-49b4-807a-18d446c7090e
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 02/12/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Central Desktop
 
@@ -106,11 +100,10 @@ To configure Azure AD single sign-on with Central Desktop, perform the following
 
     b. In the **Identifier** box, type a URL using the following pattern:
 	
-	| |
-	|--|
-	| `https://<companyname>.centraldesktop.com/saml2-metadata.php`|
-	| `https://<companyname>.imeetcentral.com/saml2-metadata.php`|
-    | |
+    ```http
+    https://<companyname>.centraldesktop.com/saml2-metadata.php
+    https://<companyname>.imeetcentral.com/saml2-metadata.php
+    ```
 
     c. In the **Reply URL** text box, type a URL using the following pattern:
     `https://<companyname>.centraldesktop.com/saml2-assertion.php`
@@ -255,4 +248,4 @@ When you click the Central Desktop tile in the Access Panel, you should be autom
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)

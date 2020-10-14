@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with OneTrust Privacy Management Software | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and OneTrust Privacy Management Software.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: mtillman
-ms.reviewer: barbkess
-
-ms.assetid: 71c2b6d0-3d28-4130-a2c8-1e72ab3d5814
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
 ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 03/13/2019
 ms.author: jeedes
-
 ---
 # Tutorial: Azure Active Directory integration with OneTrust Privacy Management Software
 
@@ -101,7 +95,7 @@ To configure Azure AD single sign-on with OneTrust Privacy Management Software, 
 
 4. On the **Basic SAML Configuration** section, If you wish to configure the application in **IDP** initiated mode, perform the following steps:
 
-    ![OneTrust Privacy Management Software Domain and URLs single sign-on information](common/idp-intiated.png)
+    ![Screenshot that shows the "Basic S A M L Configuration" section with the "Identifier" and "Reply U R L" text boxes highlighted, and the "Save" button selected.](common/idp-intiated.png)
 
     a. In the **Identifier** text box, type a URL:
     `https://www.onetrust.com/saml2`
@@ -203,9 +197,9 @@ When you click the OneTrust Privacy Management Software tile in the Access Panel
 
 ## Additional Resources
 
-- [ List of Tutorials on How to Integrate SaaS Apps with Azure Active Directory ](https://docs.microsoft.com/azure/active-directory/active-directory-saas-tutorial-list)
+- [List of Tutorials on How to Integrate SaaS Apps with Azure Active Directory](https://docs.microsoft.com/azure/active-directory/active-directory-saas-tutorial-list)
 
-- [What is application access and single sign-on with Azure Active Directory? ](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
+- [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
 

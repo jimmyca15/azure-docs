@@ -7,7 +7,7 @@ author: alkohli
 ms.service: databox
 ms.subservice: gateway
 ms.topic: article
-ms.date: 03/25/2019
+ms.date: 03/26/2019
 ms.author: alkohli
 ---
 
@@ -15,14 +15,14 @@ ms.author: alkohli
 
 ## Overview
 
-The following release notes identify the critical open issues and the resolved issues for General Availability (GA) release for Azure Data Box Edge and Azure Data Box Gateway.
+The following release notes identify the critical open issues and the resolved issues for General Availability (GA) release for Azure Data Box Edge and Azure Data Box Gateway. 
 
 The release notes are continuously updated, and as critical issues requiring a workaround are discovered, they are added. Before you deploy your Data Box Edge/Data Box Gateway, carefully review the information contained in the release notes.
 
 The GA release corresponds to the software versions:
 
-- **Data Box Gateway 1903 (1.5.810.441)**
-- **Data Box Edge 1903 (1.5.810.441)**
+- **Data Box Gateway 1903 (1.5.814.447)**
+- **Data Box Edge 1903 (1.5.814.447)**
 
 
 ## What's new
@@ -46,4 +46,4 @@ The following table provides a summary of known issues for the Data Box Gateway 
 ## Next steps
 
 - [Prepare to deploy Azure Data Box Gateway](data-box-gateway-deploy-prep.md).
-- [Prepare to deploy Azure Data Box Edge](data-box-edge-deploy-prep.md).
+- [Prepare to deploy Azure Data Box Edge](azure-stack-edge-deploy-prep.md).

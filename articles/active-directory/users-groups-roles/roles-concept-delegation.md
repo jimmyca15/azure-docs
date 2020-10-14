@@ -10,8 +10,8 @@ editor: ''
 ms.service: active-directory
 ms.workload: identity
 ms.subservice: users-groups-roles
-ms.topic: article
-ms.date: 01/31/2019
+ms.topic: conceptual
+ms.date: 04/29/2020
 ms.author: curtand
 ms.reviewer: vincesm
 ms.custom: it-pro
@@ -35,7 +35,7 @@ As an organization grows, it can be difficult to keep track of which users have 
 
 In the Azure AD portal, you can [view all the members of any role](directory-manage-roles-portal.md), which can help you quickly check your deployment and delegate permissions.
 
-If you’re interested in delegating access to Azure resources instead of administrative access in Azure AD, see [Assign a Role-based access control (RBAC) role](../../role-based-access-control/role-assignments-portal.md).
+If you’re interested in delegating access to Azure resources instead of administrative access in Azure AD, see [Assign an Azure role](../../role-based-access-control/role-assignments-portal.md).
 
 ## Delegation planning
 
@@ -57,7 +57,7 @@ Determine the Active Directory tasks that are carried out by administrators and 
 Each task should be evaluated for frequency, importance, and difficulty. These criteria are vital aspects of task definition because they govern whether a permission should be delegated:
 
 * Tasks that you do routinely, have limited risk, and are trivial to complete are excellent candidates for delegation.
-* Tasks that you do rarely but have great impact across the organization and require high skill levels should be considered very carefully before delegating. Instead, you can [temporarily elevate an account to the required role](../active-directory-privileged-identity-management-configure.md) or reassign the task.
+* Tasks that you do rarely but have great impact across the organization and require high skill levels should be considered very carefully before delegating. Instead, you can [temporarily elevate an account to the required role](../privileged-identity-management/pim-configure.md) or reassign the task.
 
 ## Delegate app administration
 
@@ -84,7 +84,7 @@ When an Application Developer creates a new application registration, they are a
 
 For even finer-grained app access delegation, you can assign ownership to individual enterprise applications. This complements the existing support for assigning application registration owners. Ownership is assigned on a per-enterprise application basis in the Enterprise Applications blade. The benefit is owners can manage only the enterprise applications they own. For example, you can assign an owner for the Salesforce application, and that owner can manage access to and configuration for Salesforce, and no other applications. An enterprise application can have many owners, and a user can be the owner for many enterprise applications. There are two app owner roles:
 
-* The **Enterprise Application Owner** role grants the ability to manage the ‘enterprise applications that the user owns, including single sign-on settings, user and group assignments, and adding additional owners. It doesn't grant the ability to manage Application Proxy settings or conditional access.
+* The **Enterprise Application Owner** role grants the ability to manage the ‘enterprise applications that the user owns, including single sign-on settings, user and group assignments, and adding additional owners. It doesn't grant the ability to manage Application Proxy settings or Conditional Access.
 * The **Application Registration Owner** role grants the ability to manage application registrations for app that the user owns, including the application manifest and adding additional owners.
 
 ## Develop a security plan
@@ -97,17 +97,17 @@ To maintain access to your identity management store when issue arises, prepare 
 
 ## Secure your administrator roles
 
-Attackers who get control of privileged accounts can do tremendous damage, so protect these accounts first, using the [baseline access policy](https://cloudblogs.microsoft.com/enterprisemobility/2018/06/22/baseline-security-policy-for-azure-ad-admin-accounts-in-public-preview/) that is available by default to all Azure AD tenants (in public preview). The policy enforces multi-factor authentication on privileged Azure AD accounts. The following Azure AD roles are covered by the Azure AD baseline policy:
+Attackers who get control of privileged accounts can do tremendous damage, so protect these accounts first, using the [baseline access policy](https://cloudblogs.microsoft.com/enterprisemobility/2018/06/22/baseline-security-policy-for-azure-ad-admin-accounts-in-public-preview/) that is available by default to all Azure AD organizations (in public preview). The policy enforces multi-factor authentication on privileged Azure AD accounts. The following Azure AD roles are covered by the Azure AD baseline policy:
 
 * Global administrator
 * SharePoint administrator
 * Exchange administrator
-* Conditional access administrator
+* Conditional Access administrator
 * Security administrator
 
 ## Elevate privilege temporarily
 
-For most day-to-day activities, not all users need global administrator rights, and not all of them should be permanently assigned to the Global Administrator role. When users need the permissions of a Global Administrator, they should activate the role assignment in Azure AD [Privileged Identity Management](../active-directory-privileged-identity-management-configure.md) on either their own account or an alternate administrative account.
+For most day-to-day activities, not all users need global administrator rights, and not all of them should be permanently assigned to the Global Administrator role. When users need the permissions of a Global Administrator, they should activate the role assignment in Azure AD [Privileged Identity Management](../privileged-identity-management/pim-configure.md) on either their own account or an alternate administrative account.
 
 ## Next steps
 

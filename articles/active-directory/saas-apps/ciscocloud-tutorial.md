@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with Cisco Cloud | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and Cisco Cloud.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: mtillman
-ms.reviewer: barbkess
-
-ms.assetid: db1cea1d-ff0a-4f0d-b5fd-50ca32702d56
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 02/14/2019
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with Cisco Cloud
 
@@ -99,7 +93,7 @@ To configure Azure AD single sign-on with Cisco Cloud, perform the following ste
 
 4. On the **Basic SAML Configuration** section, If you wish to configure the application in **IDP** initiated mode, perform the following steps:
 
-    ![Cisco Cloud Domain and URLs single sign-on information](common/idp-intiated.png)
+    ![Screenshot shows the Basic SAML Configuration, where Identifier and Reply U R L values appear.](common/idp-intiated.png)
 
     a. In the **Identifier** text box, type a URL using the following pattern:
     `<subdomain>.cisco.com`
@@ -109,7 +103,7 @@ To configure Azure AD single sign-on with Cisco Cloud, perform the following ste
 
 5. Click **Set additional URLs** and perform the following step if you wish to configure the application in **SP** initiated mode:
 
-    ![Cisco Cloud Domain and URLs single sign-on information](common/metadata-upload-additional-signon.png)
+    ![Screenshot shows Set additional U R Ls where you can enter a Sign on U R L.](common/metadata-upload-additional-signon.png)
 
     In the **Sign-on URL** text box, type a URL using the following pattern:
     `https://<subdomain>.cloudapps.cisco.com`
@@ -117,9 +111,9 @@ To configure Azure AD single sign-on with Cisco Cloud, perform the following ste
 	> [!NOTE]
 	> These values are not real. Update these values with the actual Identifier, Reply URL and Sign-on URL. Contact [Cisco Cloud Client support team](mailto:cpr-ops@cisco.com) to get these values. You can also refer to the patterns shown in the **Basic SAML Configuration** section in the Azure portal.
 
-6. Your Cisco Cloud application expects the SAML assertions in a specific format, which requires you to add custom attribute mappings to your SAML token attributes configuration. The following screenshot shows the list of default attributes. Click **Edit** icon to open User Attributes dialog.
+6. Your Cisco Cloud application expects the SAML assertions in a specific format, which requires you to add custom attribute mappings to your SAML token attributes configuration. The following screenshot shows the list of default attributes. Click **Edit** icon to open User Attributes dialog.
 
-	![image](common/edit-attribute.png)
+	![Screenshot shows User Attributes with the Edit icon selected.](common/edit-attribute.png)
 
 7. In addition to above, Cisco Cloud application expects few more attributes to be passed back in SAML response. In the **User Claims** section on the **User Attributes** dialog, perform the following steps to add SAML token attribute as shown in the below table:
 
@@ -131,9 +125,9 @@ To configure Azure AD single sign-on with Cisco Cloud, perform the following ste
 
 	a. Click **Add new claim** to open the **Manage user claims** dialog.
 
-	![image](common/new-save-attribute.png)
+	![Screenshot shows User claims with the option to Add new claim.](common/new-save-attribute.png)
 
-	![image](common/new-attribute-details.png)
+	![Screenshot shows the Manage user claims dialog box where you can enter the values described.](common/new-attribute-details.png)
 
 	b. In the **Name** textbox, type the attribute name shown for that row.
 
@@ -208,7 +202,7 @@ In this section, you enable Britta Simon to use Azure single sign-on by granting
 
 ### Create Cisco Cloud test user
 
-In this section, you create a user called Britta Simon in Cisco Cloud. Work with [Cisco Cloud support team](mailto:cpr-ops@cisco.com) to add the users in the Cisco Cloud platform. Users must be created and activated before you use single sign-on.
+In this section, you create a user called Britta Simon in Cisco Cloud. Work with [Cisco Cloud support team](mailto:cpr-ops@cisco.com) to add the users in the Cisco Cloud platform. Users must be created and activated before you use single sign-on.
 
 ### Test single sign-on
 
@@ -218,8 +212,8 @@ When you click the Cisco Cloud tile in the Access Panel, you should be automatic
 
 ## Additional Resources
 
-- [ List of Tutorials on How to Integrate SaaS Apps with Azure Active Directory ](https://docs.microsoft.com/azure/active-directory/active-directory-saas-tutorial-list)
+- [List of Tutorials on How to Integrate SaaS Apps with Azure Active Directory](https://docs.microsoft.com/azure/active-directory/active-directory-saas-tutorial-list)
 
-- [What is application access and single sign-on with Azure Active Directory? ](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
+- [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)

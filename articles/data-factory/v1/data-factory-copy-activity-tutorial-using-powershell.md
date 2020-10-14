@@ -1,5 +1,5 @@
 ﻿---
-title: 'Tutorial: Create a pipeline to move data by using Azure PowerShell | Microsoft Docs'
+title: 'Tutorial: Create a pipeline to move data by using Azure PowerShell '
 description: In this tutorial, you create an Azure Data Factory pipeline with Copy Activity by using Azure PowerShell.
 services: data-factory
 documentationcenter: ''
@@ -10,8 +10,6 @@ editor:
 ms.assetid: 71087349-9365-4e95-9847-170658216ed8
 ms.service: data-factory
 ms.workload: data-services
-ms.tgt_pltfrm: na
-
 ms.topic: tutorial
 ms.date: 01/22/2018
 ms.author: jingwang
@@ -22,7 +20,6 @@ robots: noindex
 > [!div class="op_single_selector"]
 > * [Overview and prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md)
 > * [Copy Wizard](data-factory-copy-data-wizard-tutorial.md)
-> * [Azure portal](data-factory-copy-activity-tutorial-using-azure-portal.md)
 > * [Visual Studio](data-factory-copy-activity-tutorial-using-visual-studio.md)
 > * [PowerShell](data-factory-copy-activity-tutorial-using-powershell.md)
 > * [Azure Resource Manager template](data-factory-copy-activity-tutorial-using-azure-resource-manager-template.md)
@@ -32,7 +29,7 @@ robots: noindex
 > [!NOTE]
 > This article applies to version 1 of Data Factory. If you are using the current version of the Data Factory service, see [copy activity tutorial](../quickstart-create-data-factory-powershell.md). 
 
-In this article, you learn how to use PowerShell to create a data factory with a pipeline that copies data from an Azure blob storage to an Azure SQL database. If you are new to Azure Data Factory, read through the [Introduction to Azure Data Factory](data-factory-introduction.md) article before doing this tutorial.   
+In this article, you learn how to use PowerShell to create a data factory with a pipeline that copies data from an Azure blob storage to Azure SQL Database. If you are new to Azure Data Factory, read through the [Introduction to Azure Data Factory](data-factory-introduction.md) article before doing this tutorial.   
 
 In this tutorial, you create a pipeline with one activity in it: Copy Activity. The copy activity copies data from a supported data store to a supported sink data store. For a list of data stores supported as sources and sinks, see [supported data stores](data-factory-data-movement-activities.md#supported-data-stores-and-formats). The activity is powered by a globally available service that can copy data between various data stores in a secure, reliable, and scalable way. For more information about the Copy Activity, see [Data Movement Activities](data-factory-data-movement-activities.md).
 
@@ -58,15 +55,15 @@ Here are the steps you perform as part of this tutorial:
 	
 	The AzureStorageLinkedService links your Azure storage account to the data factory. You created a container and uploaded data to this storage account as part of [prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md).   
 
-	AzureSqlLinkedService links your Azure SQL database to the data factory. The data that is copied from the blob storage is stored in this database. You created a SQL table in this database as part of [prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md).   
+	AzureSqlLinkedService links Azure SQL Database to the data factory. The data that is copied from the blob storage is stored in this database. You created a SQL table in this database as part of [prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md).   
 1. Create input and output **datasets** in the data factory.  
 	
 	The Azure storage linked service specifies the connection string that Data Factory service uses at run time to connect to your Azure storage account. And, the input blob dataset specifies the container and the folder that contains the input data.  
 
-	Similarly, the Azure SQL Database linked service specifies the connection string that Data Factory service uses at run time to connect to your Azure SQL database. And, the output SQL table dataset specifies the table in the database to which the data from the blob storage is copied.
+	Similarly, the Azure SQL Database linked service specifies the connection string that Data Factory service uses at run time to connect to your database. And, the output SQL table dataset specifies the table in the database to which the data from the blob storage is copied.
 1. Create a **pipeline** in the data factory. In this step, you create a pipeline with a copy activity.   
 	
-	The copy activity copies data from a blob in the Azure blob storage to a table in the Azure SQL database. You can use a copy activity in a pipeline to copy data from any supported source to any supported destination. For a list of supported data stores, see [data movement activities](data-factory-data-movement-activities.md#supported-data-stores-and-formats) article. 
+	The copy activity copies data from a blob in the Azure blob storage to a table in Azure SQL Database. You can use a copy activity in a pipeline to copy data from any supported source to any supported destination. For a list of supported data stores, see [data movement activities](data-factory-data-movement-activities.md#supported-data-stores-and-formats) article. 
 1. Monitor the pipeline. In this step, you **monitor** the slices of input and output datasets by using PowerShell.
 
 ## Create a data factory
@@ -79,31 +76,31 @@ A data factory can have one or more pipelines. A pipeline can have one or more a
 
 	Run the following command, and enter the user name and password that you use to sign in to the Azure portal:
 
-	```PowerShell
+	```powershell
 	Connect-AzAccount
     ```   
    
 	Run the following command to view all the subscriptions for this account:
 
-	```PowerShell
+	```powershell
 	Get-AzSubscription
     ```
 
 	Run the following command to select the subscription that you want to work with. Replace **&lt;NameOfAzureSubscription**&gt; with the name of your Azure subscription:
 
-	```PowerShell
+	```powershell
 	Get-AzSubscription -SubscriptionName <NameOfAzureSubscription> | Set-AzContext
     ```
 1. Create an Azure resource group named **ADFTutorialResourceGroup** by running the following command:
 
-	```PowerShell
+	```powershell
 	New-AzResourceGroup -Name ADFTutorialResourceGroup  -Location "West US"
     ```
     
 	Some of the steps in this tutorial assume that you use the resource group named **ADFTutorialResourceGroup**. If you use a different resource group, you need to use it in place of ADFTutorialResourceGroup in this tutorial.
 1. Run the **New-AzDataFactory** cmdlet to create a data factory named **ADFTutorialDataFactoryPSH**:  
 
-	```PowerShell
+	```powershell
 	$df=New-AzDataFactory -ResourceGroupName ADFTutorialResourceGroup -Name ADFTutorialDataFactoryPSH –Location "West US"
     ```
 	This name may already have been taken. Therefore, make the name of the data factory unique by adding a prefix or suffix (for example: ADFTutorialDataFactoryPSH05152017) and run the command again.  
@@ -121,13 +118,13 @@ Note the following points:
 
   * In Azure PowerShell, run the following command to register the Data Factory provider:
 
-	```PowerShell
+	```powershell
 	Register-AzResourceProvider -ProviderNamespace Microsoft.DataFactory
     ```
 
 	Run the following command to confirm that the Data Factory provider is registered:
 
-	```PowerShell
+	```powershell
 	Get-AzResourceProvider
     ```
   * Sign in by using the Azure subscription to the [Azure portal](https://portal.azure.com). Go to a Data Factory blade, or create a data factory in the Azure portal. This action automatically registers the provider for you.
@@ -139,7 +136,7 @@ Therefore, you create two linked services named AzureStorageLinkedService and Az
 
 The AzureStorageLinkedService links your Azure storage account to the data factory. This storage account is the one in which you created a container and uploaded the data as part of [prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md).   
 
-AzureSqlLinkedService links your Azure SQL database to the data factory. The data that is copied from the blob storage is stored in this database. You created the emp table in this database as part of [prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md). 
+AzureSqlLinkedService links Azure SQL Database to the data factory. The data that is copied from the blob storage is stored in this database. You created the emp table in this database as part of [prerequisites](data-factory-copy-data-from-azure-blob-storage-to-sql-database.md). 
 
 ### Create a linked service for an Azure storage account
 In this step, you link your Azure storage account to your data factory.
@@ -163,7 +160,7 @@ In this step, you link your Azure storage account to your data factory.
 1. In **Azure PowerShell**, switch to the **ADFGetStartedPSH** folder.
 1. Run the **New-AzDataFactoryLinkedService** cmdlet to create the linked service: **AzureStorageLinkedService**. This cmdlet, and other Data Factory cmdlets you use in this tutorial requires you to pass values for the **ResourceGroupName** and **DataFactoryName** parameters. Alternatively, you can pass the DataFactory object returned by the New-AzDataFactory cmdlet without typing ResourceGroupName and DataFactoryName each time you run a cmdlet. 
 
-	```PowerShell
+	```powershell
 	New-AzDataFactoryLinkedService $df -File .\AzureStorageLinkedService.json
     ```
 	Here is the sample output:
@@ -178,17 +175,17 @@ In this step, you link your Azure storage account to your data factory.
 
 	Other way of creating this linked service is to specify resource group name and data factory name instead of specifying the DataFactory object.  
 
-	```PowerShell
+	```powershell
 	New-AzDataFactoryLinkedService -ResourceGroupName ADFTutorialResourceGroup -DataFactoryName <Name of your data factory> -File .\AzureStorageLinkedService.json
     ```
 
-### Create a linked service for an Azure SQL database
-In this step, you link your Azure SQL database to your data factory.
+### Create a linked service for Azure SQL Database
+In this step, you link Azure SQL Database to your data factory.
 
 1. Create a JSON file named AzureSqlLinkedService.json in C:\ADFGetStartedPSH folder with the following content:
 
 	> [!IMPORTANT]
-	> Replace &lt;servername&gt;, &lt;databasename&gt;, &lt;username@servername&gt;, and &lt;password&gt; with names of your Azure SQL server, database, user account, and password.
+	> Replace &lt;servername&gt;, &lt;databasename&gt;, &lt;username@servername&gt;, and &lt;password&gt; with names of your server, database, user account, and password.
 	
 	```json
 	{
@@ -203,7 +200,7 @@ In this step, you link your Azure SQL database to your data factory.
     ```
 1. Run the following command to create a linked service:
 
-	```PowerShell
+	```powershell
 	New-AzDataFactoryLinkedService $df -File .\AzureSqlLinkedService.json
     ```
 	
@@ -217,7 +214,7 @@ In this step, you link your Azure SQL database to your data factory.
 	ProvisioningState : Succeeded
     ```
 
-   Confirm that **Allow access to Azure services** setting is turned on for your SQL database server. To verify and turn it on, do the following steps:
+   Confirm that **Allow access to Azure services** setting is turned on for your server. To verify and turn it on, do the following steps:
 
 	1. Log in to the [Azure portal](https://portal.azure.com)
 	1. Click **More services >** on the left, and click **SQL servers** in the **DATABASES** category.
@@ -227,11 +224,11 @@ In this step, you link your Azure SQL database to your data factory.
 	1. Click **Save** on the toolbar. 
 
 ## Create datasets
-In the previous step, you created linked services to link your Azure Storage account and Azure SQL database to your data factory. In this step, you define two datasets named InputDataset and OutputDataset that represent input and output data that is stored in the data stores referred by AzureStorageLinkedService and AzureSqlLinkedService respectively.
+In the previous step, you created linked services to link your Azure Storage account and Azure SQL Database to your data factory. In this step, you define two datasets named InputDataset and OutputDataset that represent input and output data that is stored in the data stores referred by AzureStorageLinkedService and AzureSqlLinkedService respectively.
 
 The Azure storage linked service specifies the connection string that Data Factory service uses at run time to connect to your Azure storage account. And, the input blob dataset (InputDataset) specifies the container and the folder that contains the input data.  
 
-Similarly, the Azure SQL Database linked service specifies the connection string that Data Factory service uses at run time to connect to your Azure SQL database. And, the output SQL table dataset (OututDataset) specifies the table in the database to which the data from the blob storage is copied. 
+Similarly, the Azure SQL Database linked service specifies the connection string that Data Factory service uses at run time to connect to your database. And, the output SQL table dataset (OututDataset) specifies the table in the database to which the data from the blob storage is copied. 
 
 ### Create an input dataset
 In this step, you create a dataset named InputDataset that points to a blob file (emp.txt) in the root folder of a blob container (adftutorial) in the Azure Storage represented by the AzureStorageLinkedService linked service. If you don't specify a value for the fileName (or skip it), data from all blobs in the input folder are copied to the destination. In this tutorial, you specify a value for the fileName.  
@@ -287,7 +284,7 @@ In this step, you create a dataset named InputDataset that points to a blob file
     For more information about these JSON properties, see [Azure Blob connector article](data-factory-azure-blob-connector.md#dataset-properties).
 1. Run the following command to create the Data Factory dataset.
 
-	```PowerShell  
+	```powershell  
 	New-AzDataFactoryDataset $df -File .\InputDataset.json
     ```
 	Here is the sample output:
@@ -305,7 +302,7 @@ In this step, you create a dataset named InputDataset that points to a blob file
     ```
 
 ### Create an output dataset
-In this part of the step, you create an output dataset named **OutputDataset**. This dataset points to a SQL table in the Azure SQL database represented by **AzureSqlLinkedService**. 
+In this part of the step, you create an output dataset named **OutputDataset**. This dataset points to a SQL table in Azure SQL Database represented by **AzureSqlLinkedService**. 
 
 1. Create a JSON file named **OutputDataset.json** in the **C:\ADFGetStartedPSH** folder with the following content:
 
@@ -340,7 +337,7 @@ In this part of the step, you create an output dataset named **OutputDataset**. 
 
 	| Property | Description |
 	|:--- |:--- |
-	| type | The type property is set to **AzureSqlTable** because data is copied to a table in an Azure SQL database. |
+	| type | The type property is set to **AzureSqlTable** because data is copied to a table in Azure SQL Database. |
 	| linkedServiceName | Refers to the **AzureSqlLinkedService** that you created earlier. |
 	| tableName | Specified the **table** to which the data is copied. | 
 	| frequency/interval | The frequency is set to **Hour** and interval is **1**, which means that the output slices are produced **hourly** between the pipeline start and end times, not before or after these times.  |
@@ -350,7 +347,7 @@ In this part of the step, you create an output dataset named **OutputDataset**. 
 	For more information about these JSON properties, see [Azure SQL connector article](data-factory-azure-sql-connector.md#dataset-properties).
 1. Run the following command to create the data factory dataset.
 
-	```PowerShell   
+	```powershell   
 	New-AzDataFactoryDataset $df -File .\OutputDataset.json
     ```
 
@@ -435,7 +432,7 @@ Currently, output dataset is what drives the schedule. In this tutorial, output 
      For descriptions of JSON properties in a pipeline definition, see [create pipelines](data-factory-create-pipelines.md) article. For descriptions of JSON properties in a copy activity definition, see [data movement activities](data-factory-data-movement-activities.md). For descriptions of JSON properties supported by BlobSource, see [Azure Blob connector article](data-factory-azure-blob-connector.md). For descriptions of JSON properties supported by SqlSink, see [Azure SQL Database connector article](data-factory-azure-sql-connector.md).
 1. Run the following command to create the data factory table.
 
-	```PowerShell   
+	```powershell   
 	New-AzDataFactoryPipeline $df -File .\ADFTutorialPipeline.json
     ```
 
@@ -449,19 +446,19 @@ Currently, output dataset is what drives the schedule. In this tutorial, output 
 	ProvisioningState : Succeeded
     ```
 
-**Congratulations!** You have successfully created an Azure data factory with a pipeline to copy data from an Azure blob storage to an Azure SQL database. 
+**Congratulations!** You have successfully created an Azure data factory with a pipeline to copy data from an Azure blob storage to Azure SQL Database. 
 
 ## Monitor the pipeline
 In this step, you use Azure PowerShell to monitor what’s going on in an Azure data factory.
 
 1. Replace &lt;DataFactoryName&gt; with the name of your data factory and run **Get-AzDataFactory**, and assign the output to a variable $df.
 
-	```PowerShell  
+	```powershell  
 	$df=Get-AzDataFactory -ResourceGroupName ADFTutorialResourceGroup -Name <DataFactoryName>
     ```
 
 	For example:
-	```PowerShell
+	```powershell
 	$df=Get-AzDataFactory -ResourceGroupName ADFTutorialResourceGroup -Name ADFTutorialDataFactoryPSH0516
     ```
 	
@@ -480,7 +477,7 @@ In this step, you use Azure PowerShell to monitor what’s going on in an Azure 
     ```
 1. Run **Get-AzDataFactorySlice** to get details about all slices of the **OutputDataset**, which is the output dataset of the pipeline.  
 
-	```PowerShell   
+	```powershell   
 	Get-AzDataFactorySlice $df -DatasetName OutputDataset -StartDateTime 2017-05-11T00:00:00Z
     ```
 
@@ -524,7 +521,7 @@ In this step, you use Azure PowerShell to monitor what’s going on in an Azure 
     ```
 1. Run **Get-AzDataFactoryRun** to get the details of activity runs for a **specific** slice. Copy the date-time value from the output of the previous command to specify the value for the StartDateTime parameter. 
 
-	```PowerShell  
+	```powershell  
 	Get-AzDataFactoryRun $df -DatasetName OutputDataset -StartDateTime "5/11/2017 09:00:00 PM"
     ```
 
@@ -553,7 +550,7 @@ In this step, you use Azure PowerShell to monitor what’s going on in an Azure 
 For comprehensive documentation on Data Factory cmdlets, see [Data Factory Cmdlet Reference](/powershell/module/az.datafactory).
 
 ## Summary
-In this tutorial, you created an Azure data factory to copy data from an Azure blob to an Azure SQL database. You used PowerShell to create the data factory, linked services, datasets, and a pipeline. Here are the high-level steps you performed in this tutorial:  
+In this tutorial, you created an Azure data factory to copy data from an Azure blob to Azure SQL Database. You used PowerShell to create the data factory, linked services, datasets, and a pipeline. Here are the high-level steps you performed in this tutorial:  
 
 1. Created an Azure **data factory**.
 1. Created **linked services**:
@@ -564,7 +561,7 @@ In this tutorial, you created an Azure data factory to copy data from an Azure b
 1. Created a **pipeline** with **Copy Activity**, with **BlobSource** as the source and **SqlSink** as the sink.
 
 ## Next steps
-In this tutorial, you used Azure blob storage as a source data store and an Azure SQL database as a destination data store in a copy operation. The following table provides a list of data stores supported as sources and destinations by the copy activity: 
+In this tutorial, you used Azure blob storage as a source data store and Azure SQL Database as a destination data store in a copy operation. The following table provides a list of data stores supported as sources and destinations by the copy activity: 
 
 [!INCLUDE [data-factory-supported-data-stores](../../../includes/data-factory-supported-data-stores.md)]
 

@@ -2,21 +2,15 @@
 title: 'Tutorial: Azure Active Directory integration with SAML 1.1 Token enabled LOB App | Microsoft Docs'
 description: Learn how to configure single sign-on between Azure Active Directory and SAML 1.1 Token enabled LOB App.
 services: active-directory
-documentationCenter: na
 author: jeevansd
-manager: daveba
-ms.reviewer: barbkess
-
-ms.assetid: ced1d88d-0e48-40d5-9aea-ef991cd9d270
+manager: CelesteDG
+ms.reviewer: celested
 ms.service: active-directory
+ms.subservice: saas-app-tutorial
 ms.workload: identity
-ms.tgt_pltfrm: na
-ms.devlang: na
 ms.topic: tutorial
 ms.date: 12/24/2018
 ms.author: jeedes
-
-ms.collection: M365-identity-device-management
 ---
 # Tutorial: Azure Active Directory integration with SAML 1.1 Token enabled LOB App
 
@@ -195,5 +189,5 @@ When you click the SAML 1.1 Token enabled LOB App tile in the Access Panel, you 
 
 - [What is application access and single sign-on with Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/active-directory-appssoaccess-whatis)
 
-- [What is conditional access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
+- [What is Conditional Access in Azure Active Directory?](https://docs.microsoft.com/azure/active-directory/conditional-access/overview)
 

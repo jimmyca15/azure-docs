@@ -1,26 +1,27 @@
 ---
-title: Tutorial - create and run a Jupyter notebook on Azure
-description: How to create an run a Jupyter notebook in Azure Notebooks that demonstrates the process of linear regression in data science.
-services: app-service
-documentationcenter: ''
-author: kraigb
-manager: douge
-
-ms.assetid: 65bbb5fe-9939-4e8e-8f5b-c197d4be142a
-ms.service: azure
-ms.workload: na
-ms.tgt_pltfrm: na
-ms.devlang: na
-ms.topic: article
+title: Tutorial - create and run a Jupyter Notebook - Azure Notebooks Preview
+description: Learn how to create and run a Jupyter Notebook in Azure Notebooks Preview that demonstrates the process of linear regression in data science.
+ms.topic: tutorial
 ms.date: 01/11/2019
-ms.author: kraigb
+ms.custom: devx-track-python
 ---
 
-# Tutorial: create and run a Jupyter notebook with Python
+# Tutorial: create and run a Jupyter Notebook with Python
 
-This tutorial walks you through the process of using Azure Notebooks to create a complete Jupyter notebook that demonstrates simple linear regression. In the course of this tutorial, you familiarize yourself with the Jupyter notebook UI, which includes creating different cells, running cells, and presenting the notebook as a slide show.
+[!INCLUDE [notebooks-status](../../includes/notebooks-status.md)]
+
+This tutorial walks you through the process of using Azure Notebooks to create a complete Jupyter Notebook that demonstrates simple linear regression. In the course of this tutorial, you familiarize yourself with the Jupyter Notebook UI, which includes creating different cells, running cells, and presenting the notebook as a slide show.
 
 The completed notebook can be found on [GitHub - Azure Notebooks Samples](https://github.com/Microsoft/AzureNotebooks/tree/master/Samples/Linear%20Regression%20-%20Cricket%20Chirps). This tutorial, however, begins with a new project and an empty notebook so you can experience creating it step by step.
+
+In this tutorial, you learn how to:
+
+> [!div class="checklist"]
+> * Create a project notebook with some sample data
+> * Use the notebook interface to create a variety of types of cells
+> * Run the notebook
+> * Save the notebook
+> * Debug the notebook in Visual Studio Code
 
 ## Create the project
 
@@ -36,10 +37,10 @@ The completed notebook can be found on [GitHub - Azure Notebooks Samples](https:
 
 1. In the **Create New Project** popup that appears, enter or set the following details, then select **Create**:
 
-    - **Project name**: Linear Regression Example - Cricket Chirps
-    - **Project ID**: linear-regression-example
-    - **Public project**: (cleared)
-    - **Create a README.md**: (cleared)
+   - **Project name**: Linear Regression Example - Cricket Chirps
+   - **Project ID**: linear-regression-example
+   - **Public project**: (cleared)
+   - **Create a README.md**: (cleared)
 
 1. After a few moments, Azure Notebooks navigates you to the new project.
 
@@ -213,7 +214,7 @@ You use a number of these commands as you populate the notebook in the sections 
 
 ## Create a code cell with commands
 
-As the previous Markdown cell explained, you can include commands directly in the notebook. You can use commands to install packages, run curl or wget to retrieve data, or anything else. Jupyter notebooks effectively run within a Linux virtual machine, so you have the full Linux command set to work with.
+As the previous Markdown cell explained, you can include commands directly in the notebook. You can use commands to install packages, run curl or wget to retrieve data, or anything else. Jupyter Notebooks effectively run within a Linux virtual machine, so you have the full Linux command set to work with.
 
 1. Enter the commands below in the code cell that appeared after you used **Run** on the previous Markdown cell. If you don't see a new cell, create one with **Insert** > **Insert Cell Below** or use the **+** button on the toolbar.
 
@@ -234,7 +235,7 @@ As the previous Markdown cell explained, you can include commands directly in th
 
     ![Busy indicator for the notebook kernel](media/tutorial/tutorial-kernel-busy.png)
 
-1. It also takes a little time for all of the `pip install` commands to run, and because you already installed these packages in the project environment (and because they're also included in Azure Notebooks by default), you see many messages that read, "Requirement already satisfied." All of that output can be visually distracting, so select that sell (using a single click), then use the **Cell** > **Cell Outputs** > **Toggle** to hide the output. You can also use the **Clear** command on that same submenu to remove the output entirely.
+1. It also takes a little time for all of the `pip install` commands to run, and because you already installed these packages in the project environment (and because they're also included in Azure Notebooks by default), you see many messages that read, "Requirement already satisfied." All of that output can be visually distracting, so select that cell (using a single click), then use the **Cell** > **Cell Outputs** > **Toggle** to hide the output. You can also use the **Clear** command on that same submenu to remove the output entirely.
 
     The **Toggle** command hides only the most recent output from the cell; if you run the cell again, the output reappears.
 
@@ -303,7 +304,7 @@ If you see unexpected results (which you probably will!), check that each cell i
 
     With two independent variables you can imagine a three-dimensional plot with a line fitted to the data. At three or more independent variables, however, it's no longer easy to visualize the fit, but you get the idea. In the end, it's all just mathematics, which a computer can handle easily without having to form a mental picture!
 
-    The regressor's `fit` method here creates the line, which algebraically is of the form `y = x*b1 + b0`, where b1 is the coefficient or slope of the line (which you can get to through `regressor.coef_`), and b0 is the intercept of the line at x=0 (which you can get to through `regressor.intercept`).
+    The regressor's `fit` method here creates the line, which algebraically is of the form `y = x*b1 + b0`, where b1 is the coefficient or slope of the line (which you can get to through `regressor.coef_`), and b0 is the intercept of the line at x=0 (which you can get to through `regressor.intercept_`).
     ```
 
 1. Code cell; when run, this cell shows the output, `LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,normalize=False)`.
@@ -322,7 +323,7 @@ If you see unexpected results (which you probably will!), check that each cell i
 
     With the regressor in hand, we can predict the test set results using its `predict` method. That method takes a vector of independent variables for which you want predictions.
 
-    Because the regressor is fit to the data by virtue of `coef_` and `intercept_` and `coef_`, a prediction is the result of `coef_ * x + intercept_`. (Indeed, `predict(0)` returns `intercept_` and `predict(1)` returns `intercept_ + coef_`.)
+    Because the regressor is fit to the data by virtue of `coef_` and `intercept_`, a prediction is the result of `coef_ * x + intercept_`. (Indeed, `predict(0)` returns `intercept_` and `predict(1)` returns `intercept_ + coef_`.)
 
     In the code, the `y_test` matrix (from when we split the set) contains the real observations. `y_pred` assigned here contains the predictions for the same `X_test` inputs. It's not expected that the test or training points exactly fit the regression; the regression is trying to find the model that we can use to make predictions with new observations of the independent variables.
     ```
@@ -411,9 +412,9 @@ If the code cells in your notebook don't behave in the way you expect, you may h
 
 Fortunately, you can download the notebook's *.ipynb* file, then open it in Visual Studio Code using the Python extension. The extension directly imports a notebook as a single code file, preserving your Markdown cells in comments. Once you've imported the notebook, you can use the Visual Studio Code debugger to step through your code, set breakpoints, examine state, and so forth. After making corrections to your code, you then export the *.ipynb* file from Visual Studio Code and upload it back into Azure Notebooks.
 
-For more information, see [Debug a Jupyter notebook](https://code.visualstudio.com/docs/python/jupyter-support#debug-a-jupyter-notebook) in the Visual Studio Code documentation.
+For more information, see [Debug a Jupyter Notebook](https://code.visualstudio.com/docs/python/jupyter-support#debug-a-jupyter-notebook) in the Visual Studio Code documentation.
 
-Also see [Visual Studio Code - Jupyter support](https://code.visualstudio.com/docs/python/jupyter-support) for additional features of Visual Studio Code for Jupyter notebooks.
+Also see [Visual Studio Code - Jupyter support](https://code.visualstudio.com/docs/python/jupyter-support) for additional features of Visual Studio Code for Jupyter Notebooks.
 
 ## Next steps
 
@@ -427,4 +428,4 @@ How-to articles:
 - [Present a slide show](present-jupyter-notebooks-slideshow.md)
 - [Work with data files](work-with-project-data-files.md)
 - [Access data resources](access-data-resources-jupyter-notebooks.md)
-- [Use Azure Machine Learning Services](use-machine-learning-services-jupyter-notebooks.md)
+- [Use Azure Machine Learning](use-machine-learning-services-jupyter-notebooks.md)

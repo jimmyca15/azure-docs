@@ -14,14 +14,17 @@ ms.tgt_pltfrm: na
 ms.devlang: dotnet
 ms.topic: article
 ms.date: 03/20/2019
-ms.author: rli; juliako;
+ms.author: ril
+ms.reviewer: juliako
 
 ---
 # Redact faces with Azure Media Analytics walkthrough
 
+[!INCLUDE [media services api v2 logo](./includes/v2-hr.md)]
+
 ## Overview
 
-**Azure Media Redactor** is an [Azure Media Analytics](media-services-analytics-overview.md) media processor (MP) that offers scalable face redaction in the cloud. Face redaction enables you to modify your video in order to blur faces of selected individuals. You may want to use the face redaction service in public safety and news media scenarios. A few minutes of footage that contains multiple faces can take hours to redact manually, but with this service the face redaction process will require just a few simple steps. For  more information, see [this](https://azure.microsoft.com/blog/azure-media-redactor/) blog.
+**Azure Media Redactor** is an [Azure Media Analytics](./legacy-components.md) media processor (MP) that offers scalable face redaction in the cloud. Face redaction enables you to modify your video in order to blur faces of selected individuals. You may want to use the face redaction service in public safety and news media scenarios. A few minutes of footage that contains multiple faces can take hours to redact manually, but with this service the face redaction process will require just a few simple steps. For  more information, see [this](https://azure.microsoft.com/blog/azure-media-redactor/) blog.
 
 For details about  **Azure Media Redactor**, see the [Face redaction overview](media-services-face-redaction.md) topic.
 
@@ -35,7 +38,7 @@ The easiest way to get started with Redactor is to use the open source AMSE tool
 
 ### Download and setup
 
-1. Download the AMSE tool from [here](https://github.com/Azure/Azure-Media-Services-Explorer).
+1. Download the AMSE for AMS v2 tool from [here](https://aka.ms/amseforv2).
 1. Log in to your Media Services account using your service key.
 
 	To obtain the account name and key information, go to the [Azure portal](https://portal.azure.com/) and select your AMS account. Then, select Settings > Keys. The Manage keys windows shows the account name and the primary and secondary keys is displayed. Copy values of the account name and the primary key.
@@ -124,7 +127,7 @@ If you are a developer trying to parse the JSON annotation data, look inside Mod
 [!INCLUDE [media-services-user-voice-include](../../../includes/media-services-user-voice-include.md)]
 
 ## Related links
-[Azure Media Services Analytics Overview](media-services-analytics-overview.md)
+[Azure Media Services Analytics Overview](./legacy-components.md)
 
 [Azure Media Analytics demos](https://azuremedialabs.azurewebsites.net/demos/Analytics.html)
 
